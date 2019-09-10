@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.645
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingLocator.API", "ParkingLocator.API\ParkingLocator.API.csproj", "{3433AC43-FE9D-4F24-ADC4-E693EF34144B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingLocator.Core", "ParkingLocator.Core\ParkingLocator.Core.csproj", "{4DB68D8D-5059-4627-8E08-8000E5A9F85C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3433AC43-FE9D-4F24-ADC4-E693EF34144B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3433AC43-FE9D-4F24-ADC4-E693EF34144B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3433AC43-FE9D-4F24-ADC4-E693EF34144B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3433AC43-FE9D-4F24-ADC4-E693EF34144B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DB68D8D-5059-4627-8E08-8000E5A9F85C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DB68D8D-5059-4627-8E08-8000E5A9F85C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DB68D8D-5059-4627-8E08-8000E5A9F85C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DB68D8D-5059-4627-8E08-8000E5A9F85C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6D9A240F-209C-45B6-AA50-6C9A836600C0}
+	EndGlobalSection
+EndGlobal
