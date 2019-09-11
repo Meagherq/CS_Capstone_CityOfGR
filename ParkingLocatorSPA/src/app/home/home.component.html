@@ -1,5 +1,8 @@
 <nb-layout>
-    <nb-layout-header>City of Grand Rapids Parking Locator</nb-layout-header>
+    <nb-layout-header>
+      <h1>Grand Rapids Parking Locator </h1>
+      <p><br> Authored by: Quinn Meagher | Atone Joryman | Gabriel Fountain</p>
+    </nb-layout-header>
     <p>testest</p>
   <nb-layout-column>
       <nb-card>
@@ -7,11 +10,65 @@
             <p *ngFor="let item of value">{{item}}</p>
           </nb-card-body>
       </nb-card>
-      <nb-card>
-            <nb-card-body>
-              <app-main-map></app-main-map>
-            </nb-card-body>
+
+        <nb-card size="small">
+          <nb-card-body>
+            <span class="h3 location">Grand Rapids </span>
+            <span class="date"> Wednesday September 11</span>
+        
+            <div class="today">
+              <span class="today-temperature h1">20&deg;</span>
+              <nb-icon icon="sun-outline" pack="eva" class="today-icon"></nb-icon>
+            </div>
+        
+            <div class="today-details">
+              <div class="parameter">
+                <span class="caption parameter-name">max </span>
+                <span class="parameter-value"> 23&deg;</span>
+              </div>
+              <div class="parameter">
+                <span class="caption parameter-name">min </span>
+                <span class="parameter-value"> 19&deg;</span>
+              </div>
+              <div class="parameter">
+                <span class="caption parameter-name">wind </span>
+                <span class="parameter-value"> 4 km/h</span>
+              </div>
+              <div class="parameter">
+                <span class="caption parameter-name">hum </span>
+                <span class="parameter-value"> 87%</span>
+              </div>
+            </div>
+        
+            <div class="weekly-forecast">
+              <div class="day">
+                <span class="caption">Sun </span>
+                <i class="weather-icon ion-ios-cloudy-outline"></i>
+                <span class="temperature"> 17&deg;</span>
+              </div>
+              <div class="day">
+                <span class="caption">Mon </span>
+                <i class="weather-icon ion-ios-sunny-outline"></i>
+                <span class="temperature"> 19&deg;</span>
+              </div>
+              <div class="day">
+                <span class="caption">Tue </span>
+                <i class="weather-icon ion-ios-rainy-outline"></i>
+                <span class="temperature"> 22&deg;</span>
+              </div>
+              <div class="day">
+                <span class="caption">Wed </span>
+                <i class="weather-icon ion-ios-partlysunny-outline"></i>
+                <span class="temperature"> 21&deg;</span>
+              </div>
+            </div>
+          </nb-card-body>
         </nb-card>
+        <nb-card>
+          <nb-card-body>
+            <app-main-map></app-main-map>
+      </nb-card-body>
+    </nb-card>
   </nb-layout-column>
   <nb-layout-footer>Contact us</nb-layout-footer>
 </nb-layout>

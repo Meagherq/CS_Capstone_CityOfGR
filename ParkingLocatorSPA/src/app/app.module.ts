@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { NbThemeModule, NbLayoutModule, NbCardModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbCardModule, NbIconModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -25,6 +25,7 @@ import { MainMapComponent } from './main-map/main-map.component';
     AppRoutingModule,
     HttpClientModule,
     NbCardModule,
+    NbIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
