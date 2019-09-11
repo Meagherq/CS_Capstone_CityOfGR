@@ -1,5 +1,15 @@
 <nb-layout>
+    <nb-layout-header>City of Grand Rapids Parking Locator</nb-layout-header>
   <nb-layout-column>
-    <p>test {{value}}</p>
+      <nb-card>
+          <nb-card-body>
+            <p *ngFor="let item of value">{{item}}</p>
+          </nb-card-body>
+      </nb-card>
+      <nb-card>
+            <nb-card-body>
+              <h1>hello world</h1>
+            </nb-card-body>
+        </nb-card>
   </nb-layout-column>
 </nb-layout>

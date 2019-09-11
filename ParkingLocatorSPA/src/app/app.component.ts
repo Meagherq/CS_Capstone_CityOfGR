@@ -8,8 +8,10 @@ import { ParkingService } from 'src/services/parking.service';
 })
 export class AppComponent {
   title = 'ParkingLocatorSPA';
-  value: any;
+  value: any[];
   constructor(private parkingService: ParkingService) {
-      this.value = this.parkingService.getValue().subscribe(x => x);
+      this.parkingService.getValue().subscribe((x: any[]) => {
+          this.value = x;
+      });
   }
 }
