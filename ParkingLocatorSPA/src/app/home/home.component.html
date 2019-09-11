@@ -1,0 +1,17 @@
+<nb-layout>
+    <nb-layout-header>City of Grand Rapids Parking Locator</nb-layout-header>
+    <p>testest</p>
+  <nb-layout-column>
+      <nb-card>
+          <nb-card-body>
+            <p *ngFor="let item of value">{{item}}</p>
+          </nb-card-body>
+      </nb-card>
+      <nb-card>
+            <nb-card-body>
+              <app-main-map></app-main-map>
+            </nb-card-body>
+        </nb-card>
+  </nb-layout-column>
+  <nb-layout-footer>Contact us</nb-layout-footer>
+</nb-layout>

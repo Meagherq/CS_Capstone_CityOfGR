@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ParkingService } from 'src/services/parking.service';
 
 @Component({
   selector: 'app-root',
@@ -7,11 +6,5 @@ import { ParkingService } from 'src/services/parking.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'ParkingLocatorSPA';
-  value: any[];
-  constructor(private parkingService: ParkingService) {
-      this.parkingService.getValue().subscribe((x: any[]) => {
-          this.value = x;
-      });
-  }
+
 }

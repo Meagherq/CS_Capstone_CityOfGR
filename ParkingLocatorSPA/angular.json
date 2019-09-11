@@ -25,9 +25,12 @@
             ],
             "styles": [
               "./node_modules/@nebular/theme/styles/prebuilt/default.css",
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/leaflet/leaflet.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/leaflet/leaflet.js"
+            ]
           },
           "configurations": {
             "production": {
