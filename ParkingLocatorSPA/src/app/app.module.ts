@@ -25,7 +25,7 @@ import { MainMapComponent } from './main-map/main-map.component';
     AppRoutingModule,
     HttpClientModule,
     NbCardModule,
-    NbIconModule
+    NbIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
