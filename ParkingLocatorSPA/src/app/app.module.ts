@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -27,7 +28,8 @@ import { MainMapComponent } from './main-map/main-map.component';
     NbCardModule,
     NbIconModule,
     NbActionsModule,
-    NbSearchModule
+    NbSearchModule,
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
