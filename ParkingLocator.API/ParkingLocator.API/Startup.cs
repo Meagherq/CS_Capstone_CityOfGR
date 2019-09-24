@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using ParkingLocator.Core.Concretes;
+using ParkingLocator.Core.Helpers;
+using ParkingLocator.Core.Interfaces;
 
 namespace ParkingLocator.API
 {
@@ -25,9 +28,12 @@ namespace ParkingLocator.API
             {
                 builder.AllowAnyOrigin()
                        .AllowAnyMethod()
-                       .AllowAnyHeader();
+                       .AllowAnyHeader()
+                       .Build();
             }));
-                    
+            services.AddHttpClient();
+            services.AddTransient<IParkingService, ParkingService>();
+            services.Configure<ParkingKeyOptions>(options => Configuration.GetSection("ParkingKeyOptions").Bind(options));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSwaggerGen(c =>
             {
