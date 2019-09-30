@@ -12,16 +12,18 @@ namespace ParkingLocator.Core.Concretes
     public class ParkingService : IParkingService
     {
         private readonly IHttpClientFactory _clientFactory;
-        public ParkingService(IHttpClientFactory clientFactory, IOptions<ParkingKeyOptions> option)
+        private readonly IOptions<ParkingKeyOptions> _options;
+        public ParkingService(IHttpClientFactory clientFactory, IOptions<ParkingKeyOptions> options)
         {
             _clientFactory = clientFactory;
+            _options = options;
         }
 
         public async Task<string> GetZoneList()
         {
             string results = "";
             var request = new HttpRequestMessage(HttpMethod.Get,
-            "https://test.com");
+            "https://test.com/param param param");
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("Authorizationg", "Bearer Testtoken");
 
@@ -32,6 +34,7 @@ namespace ParkingLocator.Core.Concretes
             if (response.IsSuccessStatusCode)
             {
                 results = await response.Content.ReadAsStringAsync();
+
             }
             return results;
         }

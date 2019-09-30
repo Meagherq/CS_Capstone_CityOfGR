@@ -19,7 +19,7 @@ namespace ParkingLocator.API.Controllers
         [HttpGet]
         public async Task<ActionResult> Get()
         {
-            var results = await _parkingService.GetZones();
+            var results = await _parkingService.GetZoneList();
             return Ok(results);
         }
     }
