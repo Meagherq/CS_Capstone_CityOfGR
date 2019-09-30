@@ -17,4 +17,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUi" Version="5.0.0-rc2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ParkingLocator.Core\ParkingLocator.Core.csproj" />
+  </ItemGroup>
+
 </Project>
