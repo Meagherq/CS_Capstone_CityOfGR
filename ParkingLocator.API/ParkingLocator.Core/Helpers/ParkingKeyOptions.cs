@@ -17,5 +17,7 @@ namespace ParkingLocator.Core.Helpers
         public string VeociSecretKey { get; set; }
         public string SocrataEndpoint { get; set; }
         public string SocrataAdminKey { get; set; }
+        public string SocrataClientId { get; set; }
+        public string SocrataClientSecret { get; set; }
     }
 }

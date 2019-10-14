@@ -49,7 +49,11 @@ namespace ParkingLocator.API.Controllers
         [HttpGet("flowbird")]
         public async Task<ActionResult> GetFlowbird()
         {
-            var results = await _parkingService.GetZoneListPassport();
+            var results = await _parkingService.GetFlowbird();
+            if (results == null)
+            {
+                return BadRequest(results);
+            }
             return Ok(results);
         }
 
@@ -57,7 +61,7 @@ namespace ParkingLocator.API.Controllers
         [HttpGet("socrata")]
         public async Task<ActionResult> GetSocrata()
         {
-            var results = await _parkingService.GetZoneListPassport();
+            var results = await _parkingService.GetSocrata();
             return Ok(results);
         }
     }

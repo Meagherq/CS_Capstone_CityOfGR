@@ -81,9 +81,9 @@ namespace ParkingLocator.Core.Concretes
         {
             string results = "";
             var request = new HttpRequestMessage(HttpMethod.Get,
-            "https://test.com");
+            "https://google.com");
             request.Headers.Add("Accept", "application/json");
-            request.Headers.Add("Authorizationg", "Bearer Testtoken");
+            //request.Headers.Add("Authorizationg", "Bearer Testtoken");
 
             var client = _clientFactory.CreateClient();
 
@@ -100,11 +100,14 @@ namespace ParkingLocator.Core.Concretes
         {
             string results = "";
             var request = new HttpRequestMessage(HttpMethod.Get,
-            _options.Value.SocrataEndpoint + "$where=within_circle(the_geom, -85.67, 42.97, 1000)");
+            $"{ _options.Value.SocrataEndpoint }$$app_token={_options.Value.SocrataAdminKey}");
+            //"$where=within_circle(the_geom, -85.67, 42.97, 1000)");
             request.Headers.Add("Host", "data.grandrapidsmi.gov");
             request.Headers.Add("Accept", "application/json");
+            //request.Headers.Add("Content-Length", "253");
+            //request.Headers.Add("Content-Type", "application/json");
             request.Headers.Add("X-App-Token", _options.Value.SocrataAdminKey);
-            request.Headers.Add("Authorization", "Basic 2zoyrh3bnt0scl4buz0mscmkt2lklr26jdxewamekyp601nf4ejxiu82h6p6o91mnxier2yx5jw");
+            request.Headers.Add("Authorization", $"Basic {_options.Value.SocrataClientId}{_options.Value.SocrataClientSecret}");
 
             var client = _clientFactory.CreateClient();
 
