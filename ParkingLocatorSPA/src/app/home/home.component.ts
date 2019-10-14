@@ -4,7 +4,27 @@ import { NbSearchService } from '@nebular/theme';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { mapToMapExpression } from '@angular/compiler/src/render3/util';
 declare let L: any;
-
+var parkingspot = 
+[[
+    -85.670216067712,
+    42.966133652813
+],
+[
+    -85.670215097108,
+    42.966078779706
+],
+[
+    -85.670248719741,
+    42.966078458585
+],
+[
+    -85.670249690393,
+    42.966133332591
+],
+[
+    -85.670216067712,
+    42.966133652813
+]];
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
