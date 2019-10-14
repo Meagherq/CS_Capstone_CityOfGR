@@ -8,74 +8,76 @@
         <nb-action>EVENTS</nb-action>
         <nb-action>CONTACT US</nb-action>
       </nb-actions>
-      <nb-search type="rotate-layout"></nb-search>
+      <nb-search text-heading-1-font-size="1rem" type="rotate-layout"></nb-search>
       <p id="loc-header" text-basic-color>Enter a Location</p>
     </nb-layout-header>
   <nb-layout-column>
-      <nb-flip-card>
-          <nb-card-front>
-            <nb-card size=small accent=info>
-              <nb-card-header>Todays Weather</nb-card-header>
-              <nb-card-body>
-                  <span>Grand Rapids </span>
-                  <span> Wednesday September 11</span>
-                  <div class="today">
-                    <span>20&deg;</span>
-                    <nb-icon icon="sun-outline" pack="eva" class="today-icon"></nb-icon>
-                  </div>              
-                  <div class="today-details">
-                    <div class="parameter">
-                      <span class="parameter-name">max </span>
-                      <span class="parameter-value"> 23&deg;</span>
-                    </div>
-                    <div class="parameter">
-                      <span class="parameter-name">min </span>
-                      <span class="parameter-value"> 19&deg;</span>
-                    </div>
-                    <div class="parameter">
-                      <span class="parameter-name">wind </span>
-                      <span class="parameter-value"> 4 km/h</span>
-                    </div>
-                    <div class="parameter">
-                      <span class="parameter-name">hum </span>
-                      <span class="parameter-value"> 87%</span>
-                    </div>
-                  </div>
-              </nb-card-body>
-            </nb-card>
-          </nb-card-front>
-          <nb-card-back>
-            <nb-card size=small accent=info>
-              <nb-card-header>Weekly Forecast</nb-card-header>
-              <nb-card-body>
-                  <div class="weekly-forecast">
-                      <div class="day">
-                        <span>Sun </span>
-                        <span class="temperature"> 17&deg;</span>
-                      </div>
-                      <div class="day">
-                        <span>Mon </span>
-                        <span class="temperature"> 19&deg;</span>
-                      </div>
-                      <div class="day">
-                        <span>Tue </span>
-                        <span class="temperature"> 22&deg;</span>
-                      </div>
-                      <div class="day">
-                        <span>Wed </span>
-                        <span class="temperature"> 21&deg;</span>
-                      </div>
-                    </div>
-              </nb-card-body>
-            </nb-card>
-          </nb-card-back>
-        </nb-flip-card>
-        <nb-card accent=info>
-          <nb-card-header>Let's find you a spot!</nb-card-header>
-          <nb-card-body>
-            <app-main-map></app-main-map>
-      </nb-card-body>
+    <nb-card accent=info>
+        <nb-card-header>Let's find you a spot!</nb-card-header>
+            <nb-card-body>
+                <div id="map">
+                </div>
+            </nb-card-body>
     </nb-card>
+    <nb-flip-card>
+            <nb-card-front>
+              <nb-card size=small accent=info>
+                <nb-card-header>Todays Weather</nb-card-header>
+                <nb-card-body>
+                    <span>{{searchValue}}</span>
+                    <span>Grand Rapids </span>
+                    <span> Wednesday September 11</span>
+                    <div class="today">
+                      <span>20&deg;</span>
+                      <nb-icon icon="sun-outline" pack="eva" class="today-icon"></nb-icon>
+                    </div>              
+                    <div class="today-details">
+                      <div class="parameter">
+                        <span class="parameter-name">max </span>
+                        <span class="parameter-value"> 23&deg;</span>
+                      </div>
+                      <div class="parameter">
+                        <span class="parameter-name">min </span>
+                        <span class="parameter-value"> 19&deg;</span>
+                      </div>
+                      <div class="parameter">
+                        <span class="parameter-name">wind </span>
+                        <span class="parameter-value"> 4 km/h</span>
+                      </div>
+                      <div class="parameter">
+                        <span class="parameter-name">hum </span>
+                        <span class="parameter-value"> 87%</span>
+                      </div>
+                    </div>
+                </nb-card-body>
+              </nb-card>
+            </nb-card-front>
+            <nb-card-back>
+              <nb-card size=small accent=info>
+                <nb-card-header>Weekly Forecast</nb-card-header>
+                <nb-card-body>
+                    <div class="weekly-forecast">
+                        <div class="day">
+                          <span>Sun </span>
+                          <span class="temperature"> 17&deg;</span>
+                        </div>
+                        <div class="day">
+                          <span>Mon </span>
+                          <span class="temperature"> 19&deg;</span>
+                        </div>
+                        <div class="day">
+                          <span>Tue </span>
+                          <span class="temperature"> 22&deg;</span>
+                        </div>
+                        <div class="day">
+                          <span>Wed </span>
+                          <span class="temperature"> 21&deg;</span>
+                        </div>
+                      </div>
+                </nb-card-body>
+              </nb-card>
+            </nb-card-back>
+          </nb-flip-card>
   </nb-layout-column>
   <nb-layout-footer fixed=true>Authored by: Quinn Meagher | Atone Joryman | Gabriel Fountain</nb-layout-footer>
 </nb-layout>

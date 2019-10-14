@@ -6,16 +6,15 @@ declare let L: any;
   templateUrl: './main-map.component.html',
   styleUrls: ['./main-map.component.scss']
 })
-export class MainMapComponent implements OnInit {
+export class MainMapComponent{
 
   constructor() { }
 
-  ngOnInit() {
-    const map = L.map('map').setView(new L.LatLng(42.938, -85.668), 13);
+//   ngOnInit() {
+//     const map = L.map('map').setView(new L.LatLng(42.938, -85.668), 13);
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
-  }
-
+//     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+//         attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+//     }).addTo(map);
+//   }
 }

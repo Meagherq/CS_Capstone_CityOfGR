@@ -7,7 +7,10 @@ namespace ParkingLocator.Core.Interfaces
 {
     public interface IParkingService
     {
-        Task<string> GetZoneList();
-        Task<string> GetZone();
+        Task<string> GetZoneListPassport();
+        Task<string> GetZoneInfoPassport();
+        Task<string> GetVeoci();
+        Task<string> GetFlowbird();
+        Task<string> GetSocrata();
     }
 }

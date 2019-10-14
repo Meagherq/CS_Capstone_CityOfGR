@@ -19,11 +19,11 @@ namespace ParkingLocator.Core.Concretes
             _options = options;
         }
 
-        public async Task<string> GetZoneList()
+        public async Task<string> GetZoneListPassport()
         {
             string results = "";
             var request = new HttpRequestMessage(HttpMethod.Get,
-            "https://test.com/param param param");
+            _options.Value.PassportEndpoint + "getzonelist?apikey=");
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("Authorizationg", "Bearer Testtoken");
 
@@ -39,13 +39,72 @@ namespace ParkingLocator.Core.Concretes
             return results;
         }
 
-        public async Task<string> GetZone()
+        public async Task<string> GetZoneInfoPassport()
         {
             string results = "";
             var request = new HttpRequestMessage(HttpMethod.Get,
             "https://test.com");
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("Authorizationg", "Bearer Testtoken");
+
+            var client = _clientFactory.CreateClient();
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                results = await response.Content.ReadAsStringAsync();
+            }
+            return results;
+        }
+
+        public async Task<string> GetVeoci()
+        {
+            string results = "";
+            var request = new HttpRequestMessage(HttpMethod.Get,
+            "https://test.com");
+            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("Authorizationg", "Bearer Testtoken");
+
+            var client = _clientFactory.CreateClient();
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                results = await response.Content.ReadAsStringAsync();
+            }
+            return results;
+        }
+
+        public async Task<string> GetFlowbird()
+        {
+            string results = "";
+            var request = new HttpRequestMessage(HttpMethod.Get,
+            "https://test.com");
+            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("Authorizationg", "Bearer Testtoken");
+
+            var client = _clientFactory.CreateClient();
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                results = await response.Content.ReadAsStringAsync();
+            }
+            return results;
+        }
+
+        public async Task<string> GetSocrata()
+        {
+            string results = "";
+            var request = new HttpRequestMessage(HttpMethod.Get,
+            _options.Value.SocrataEndpoint + "$where=within_circle(the_geom, -85.67, 42.97, 1000)");
+            request.Headers.Add("Host", "data.grandrapidsmi.gov");
+            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("X-App-Token", _options.Value.SocrataAdminKey);
+            request.Headers.Add("Authorization", "Basic 2zoyrh3bnt0scl4buz0mscmkt2lklr26jdxewamekyp601nf4ejxiu82h6p6o91mnxier2yx5jw");
 
             var client = _clientFactory.CreateClient();
 
