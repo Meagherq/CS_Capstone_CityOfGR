@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using ParkingLocator.Core.Helpers;
 using ParkingLocator.Core.Interfaces;
 using System;
@@ -23,9 +25,9 @@ namespace ParkingLocator.Core.Concretes
         {
             string results = "";
             var request = new HttpRequestMessage(HttpMethod.Get,
-            _options.Value.PassportEndpoint + "getzonelist?apikey=");
+            _options.Value.PassportEndpoint + $"getzonelist?apikey=${_options.Value.PassportStagingKey}");
             request.Headers.Add("Accept", "application/json");
-            request.Headers.Add("Authorizationg", "Bearer Testtoken");
+            //request.Headers.Add("Authorizationg", "Bearer Testtoken");
 
             var client = _clientFactory.CreateClient();
 
@@ -99,15 +101,19 @@ namespace ParkingLocator.Core.Concretes
         public async Task<string> GetSocrata()
         {
             string results = "";
+            string token = _options.Value.SocrataClientId + ":" + _options.Value.SocrataClientSecret;
+            var encodedToken = Encoding.UTF8.GetBytes(token);
+            token = Convert.ToBase64String(encodedToken);
+
             var request = new HttpRequestMessage(HttpMethod.Get,
-            $"{ _options.Value.SocrataEndpoint }$$app_token={_options.Value.SocrataAdminKey}");
+            $"{ _options.Value.SocrataEndpoint }");
             //"$where=within_circle(the_geom, -85.67, 42.97, 1000)");
-            request.Headers.Add("Host", "data.grandrapidsmi.gov");
+            //request.Headers.Add("Host", "data.grandrapidsmi.gov");
             request.Headers.Add("Accept", "application/json");
             //request.Headers.Add("Content-Length", "253");
             //request.Headers.Add("Content-Type", "application/json");
             request.Headers.Add("X-App-Token", _options.Value.SocrataAdminKey);
-            request.Headers.Add("Authorization", $"Basic {_options.Value.SocrataClientId}{_options.Value.SocrataClientSecret}");
+            request.Headers.Add("Authorization", $"Basic {token}");
 
             var client = _clientFactory.CreateClient();
 
@@ -117,6 +123,7 @@ namespace ParkingLocator.Core.Concretes
             {
                 results = await response.Content.ReadAsStringAsync();
             }
+            var parkingData = JsonConvert.DeserializeObject<JArray>(results);
             return results;
         }
     }

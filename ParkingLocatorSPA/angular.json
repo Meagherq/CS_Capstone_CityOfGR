@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "parkingLocatorSPA": {
+    "ParkingLocatorSPA": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/parkingLocatorSPA",
+            "outputPath": "dist/ParkingLocatorSPA",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -28,13 +28,14 @@
               "src/assets"
             ],
             "styles": [
+                {
+                    "input": "src/custom-style.scss"
+                },
               "src/styles.scss",
-              "src/assets/leaflet/leaflet.css",
-              "./node_modules/bootstrap/dist/css/bootstrap.css",
-              "./node_modules/bootstrap/dist/css/bootstrap.min.css"
+              "src/assets/leaflet/leaflet.css"
             ],
             "scripts": [
-              "src/assets/leaflet/leaflet.js"
+                "src/assets/leaflet/leaflet.js"
             ]
           },
           "configurations": {
@@ -59,6 +60,11 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
                 }
               ]
             }
@@ -67,18 +73,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "parkingLocatorSPA:build"
+            "browserTarget": "ParkingLocatorSPA:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "parkingLocatorSPA:build:production"
+              "browserTarget": "ParkingLocatorSPA:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "parkingLocatorSPA:build"
+            "browserTarget": "ParkingLocatorSPA:build"
           }
         },
         "test": {
@@ -115,15 +121,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "parkingLocatorSPA:serve"
+            "devServerTarget": "ParkingLocatorSPA:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "parkingLocatorSPA:serve:production"
+              "devServerTarget": "ParkingLocatorSPA:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "parkingLocatorSPA"
+  "defaultProject": "ParkingLocatorSPA"
 }

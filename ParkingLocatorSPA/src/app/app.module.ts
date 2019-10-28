@@ -1,37 +1,45 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
-import { AppComponent } from './app.component';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { NbThemeModule, NbLayoutModule, NbCardModule, NbIconModule, NbActionsModule, NbSearchModule } from '@nebular/theme';
-import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatCardModule,
+    MatIconModule,
+    MatIconRegistry} from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
-import { MainMapComponent } from './main-map/main-map.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-   declarations: [
-      AppComponent,
-      HomeComponent,
-      MainMapComponent
-   ],
-   imports: [
+  declarations: [
+    AppComponent,
+    HomeComponent,
+  ],
+  imports: [
     BrowserModule,
-    NoopAnimationsModule,
-    NbThemeModule.forRoot({ name: 'default' }),
-    NbLayoutModule,
-    NbEvaIconsModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
     HttpClientModule,
-    NbCardModule,
-    NbIconModule,
-    NbActionsModule,
-    NbSearchModule,
-    NgbModule,
+    MatFormFieldModule, MatButtonModule, MatInputModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatCardModule,
+    MatIconModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+    constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {
+        matIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('./assets/mdi.svg'));
+      }
+ }

@@ -1,9 +1,77 @@
+@import '~@angular/material/theming';
+
 #loc-header {
     margin-top: 1em;
     font-weight: bold;
 }
 
 #map {
-    height: 700px;
-    width: 1400px;
+    height: 730px;
+    width: 1369px;
+    margin-top: 10px;
+}
+
+.intro-card {
+    margin-top: 10px;
+    margin-left: 6px;
+    width: 500px;
+}
+
+.dash-button {
+    height: 43px;
+}
+
+.search-card {
+    margin-top: 10px;
+    margin-left: 6px;
+    width: 500px;
+}
+
+.title-center {
+    flex: 1 1 auto;
+    text-align: center;
+    font-size: 140%;
+    margin-left: 250px;
+}
+
+.shadow-container {
+    position: relative;
+    z-index: 2;
+}
+
+.nav-list {
+    margin-top: -8px;
+    font-size: 1.2em;
+}
+
+.main-content {
+    font-size: 1.1em;
+}
+
+.sidenav {
+    width: 150px;
+}
+
+.search-bar {
+    margin-top: 25px;
+    width: 250px;
+}
+
+.search-icon {
+    margin-top: 20px;
+}
+
+.grid-container {
+    display: inline-grid;
+    grid-template-columns: auto auto;
+  }
+
+.parking-stats-header {
+    font-size: 1em;
+    text-align: center;
+}
+
+.parking-stats {
+    font-size: .8em;
+    text-align: center;
 }

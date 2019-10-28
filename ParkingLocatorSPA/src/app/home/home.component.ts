@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ParkingService } from 'src/services/parking.service';
-import { NbSearchService } from '@nebular/theme';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { mapToMapExpression } from '@angular/compiler/src/render3/util';
+
 
 declare let L: any;
-var parkingspot = 
+const parkingspot =
 [[
     42.966133652813,
-    -85.670216067712 
+    -85.670216067712
 ],
 [
     42.966133652813,
@@ -17,14 +16,13 @@ var parkingspot =
 [
     42.966078458585,
     -85.670248719741
-   
 ],
 [
     42.966078458585,
     -85.670215097108
 ]];
 
-var parkingspot2 = [[
+const parkingspot2 = [[
     42.961997937653,
     -85.672433426147
     ],
@@ -45,9 +43,9 @@ var parkingspot2 = [[
     -85.672433426147
     ]];
 
-    var parkingspot3 =[[
-        42.961770755288,
-        -85.666767464271
+const parkingspot3 = [[
+            42.961770755288,
+            -85.666767464271
         ],
         [
         42.961770103943,
@@ -65,7 +63,7 @@ var parkingspot2 = [[
          42.961770755288,
         -85.666767464271
         ]];
-        var parkingspot4 = [[
+const parkingspot4 = [[
             42.9756814769,
             -85.672714419956
 
@@ -102,44 +100,23 @@ export class HomeComponent implements OnInit {
           'Content-Type':  'application/json',
         }),
     };
-
+    availableSpots: any = 0;
     title = 'ParkingLocatorSPA';
     value: any[];
-    searchValue = '';
+    searchValue: any;
     searchResult: any;
     map: any;
-    constructor(private parkingService: ParkingService, private searchService: NbSearchService, private http: HttpClient) {
-        this.parkingService.getValue().subscribe((x: any[]) => {
-            this.value = x;
-        });
 
-        this.searchService.onSearchSubmit()
-        .subscribe((data: any) => {
-          this.searchValue = data.term + ` Grand Rapids Michigan`;
-          console.log(this.searchValue);
-          this.searchOSM().subscribe(x => {
-              this.searchResult = x;
 
-              if(data.term = "mySpot") {
-                var polygon = L.polygon(parkingspot);
-                var polygon2 = L.polygon(parkingspot2);
-                var polygon3 = L.polygon(parkingspot3);
-                var polygon4 = L.polygon(parkingspot4);
-                polygon.addTo(this.map);
-                polygon2.addTo(this.map);
-                polygon3.addTo(this.map);
-                polygon4.addTo(this.map);
-                polygon.setStyle({fillColor: '#dddddd'});
-                this.map.flyTo(new L.LatLng(    42.961997414251,
-                    -85.672467042291
-                    ), 18);
-              } else {
-                console.log(this.searchResult);
-                console.log(this.searchResult[0].boundingbox[0] + ` - ` + this.searchResult[0].boundingbox[2]);
-              this.map.flyTo(new L.LatLng(this.searchResult[0].boundingbox[0], this.searchResult[0].boundingbox[2]), 18);
-              }
-            });
-        });
+
+
+    public links = [
+        { displayText: 'Parking', path: 'parking', icon: 'car-hatchback' },
+        { displayText: 'Events', path: 'events', icon: 'calendar' },
+        { displayText: 'Resources', path: 'resources', icon: 'web' },
+        { displayText: 'Settings', path: 'settings', icon: 'settings-outline' },
+      ];
+    constructor(private parkingService: ParkingService, private http: HttpClient) {
     }
 
     ngOnInit() {
@@ -149,8 +126,47 @@ export class HomeComponent implements OnInit {
         }).addTo(this.map);
 
     }
+
     searchOSM() {
-        return this.http.get(`https://nominatim.openstreetmap.org/?format=json&addressdetails=1&q=${this.searchValue}&format=json&limit=1`
+        return this.http.get(`https://nominatim.openstreetmap.org/?format=json&addressdetails=1&q=${this.searchResult}&format=json&limit=1`
         , this.httpOptions);
     }
+
+    focusOutFunction() {
+        this.searchResult = '';
+      }
+
+      onKeydown(event: any) {
+        if (event.key === 'Enter') {
+          console.log(event);
+          console.log(this.searchResult);
+          const baseSearch = this.searchResult;
+          this.searchResult = this.searchResult + ` Grand Rapids Michigan`;
+          this.searchOSM().subscribe(x => {
+            this.searchValue = x;
+
+            if (baseSearch === 'mySpot') {
+              const polygon = L.polygon(parkingspot);
+              const polygon2 = L.polygon(parkingspot2);
+              const polygon3 = L.polygon(parkingspot3);
+              const polygon4 = L.polygon(parkingspot4);
+              polygon.addTo(this.map);
+              polygon2.addTo(this.map);
+              polygon3.addTo(this.map);
+              polygon4.addTo(this.map);
+              polygon.setStyle({fillColor: '#dddddd'});
+              this.map.flyTo(new L.LatLng(    42.961997414251,
+                  -85.672467042291
+                  ), 18);
+            } else {
+              console.log(this.searchValue);
+              console.log(this.searchValue[0].boundingbox[0] + ` - ` + this.searchValue[0].boundingbox[2]);
+              this.map.flyTo(new L.LatLng(this.searchValue[0].boundingbox[0], this.searchValue[0].boundingbox[2]), 18);
+            }
+          });
+          this.searchResult = '';
+          const showMap = document.getElementById('map');
+          showMap.scrollIntoView();
+        }
+      }
 }

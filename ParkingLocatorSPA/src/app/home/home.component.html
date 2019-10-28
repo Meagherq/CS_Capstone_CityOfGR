@@ -1,4 +1,64 @@
-<nb-layout>
+<div class="shadow-container">
+<mat-toolbar color="primary" class="mat-elevation-z6">
+    <span class="title-center">City of Grand Rapids Interactive Parking Locator</span>
+    <span class="example-spacer"></span>
+    <mat-icon svgIcon="magnify" class="search-icon"></mat-icon>
+    <mat-form-field class="search-bar">
+        <input matInput type="search" placeholder="Search" class="search-input" [(ngModel)]="searchResult" (keydown)="onKeydown($event)" (focusout)="focusOutFunction()">
+    </mat-form-field>
+</mat-toolbar>
+</div>
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav class="sidenav" opened mode="side">
+        <mat-nav-list class="nav-list">       
+            <a class="menu-item" *ngFor="let link of links" routerLink="/{{link.path}}" mat-list-item><mat-icon style="margin-right: 8px;" svgIcon={{link.icon}}></mat-icon><mat-divider></mat-divider>{{link.displayText}}</a>     
+            <br>
+            <div>
+                <mat-divider></mat-divider>
+                <p class="parking-stats-header">Available Spots</p>
+                <p class="parking-stats">{{this.availableSpots}} spots</p>
+                <mat-divider></mat-divider>
+            </div>
+            
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div class="grid-container">
+            <div class="intro-card">
+                <mat-card class="large-card">
+                    <mat-card-title>
+                        Let's Find You a Parking Spot!
+                    </mat-card-title>
+                    <mat-card-content class="main-content">
+                        The Grand Rapids Parking Locator app helps you find available parking when traveling downtown. Locate spots by typing in the name or address of your desired location into the search bar.
+                        This app was made as a capstone project for Grand Valley's School of Computer Science together with the City of Grand Rapids.
+                    </mat-card-content>
+                </mat-card>
+            </div>
+            <div class="intro-card">
+                    <mat-card class="large-card">
+                        <mat-card-title>
+                            How About a Dash Lot?
+                        </mat-card-title>
+                        <mat-card-content class="main-content">
+                            Grand Rapids offers a shuttle service known as DASH which connects to various public parking lots.<br>Click here to show lots associated with the Downtown Area Shuttle.
+                            <br><button class="mat-elevation-z5 dash-button" color="primary" mat-button>SHOW DASH LOTS</button>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+        </div>
+        <div id="map">
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+
+
+
+
+
+<!-- <nb-layout>
     <nb-layout-header size="medium" fixed>
       <h1 class="text-center">Grand Rapids Parking Locator</h1>
     </nb-layout-header>
@@ -80,4 +140,4 @@
           </nb-flip-card>
   </nb-layout-column>
   <nb-layout-footer fixed=true>Authored by: Quinn Meagher | Atone Joryman | Gabriel Fountain</nb-layout-footer>
-</nb-layout>
+</nb-layout> -->

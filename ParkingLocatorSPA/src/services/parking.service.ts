@@ -8,9 +8,7 @@ export class ParkingService {
 
 constructor(private http: HttpClient) { }
 
-getValue() {
-    return this.http.get('https://localhost:5000/api/Values');
+getSocrata() {
+    return this.http.get('https://localhost:5000/api/Parking/socrata');
 }
-
-
 }
