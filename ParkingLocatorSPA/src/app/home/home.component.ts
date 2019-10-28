@@ -4,6 +4,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 
 
 declare let L: any;
+let parkingSpots: any[];
 const parkingspot =
 [[
     42.966133652813,
@@ -117,6 +118,7 @@ export class HomeComponent implements OnInit {
         { displayText: 'Settings', path: 'settings', icon: 'settings-outline' },
       ];
     constructor(private parkingService: ParkingService, private http: HttpClient) {
+
     }
 
     ngOnInit() {
@@ -125,6 +127,19 @@ export class HomeComponent implements OnInit {
             attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(this.map);
 
+    }
+
+    searchSpots() {
+    //  this.parkingService.getSocrata().subscribe(data =>{
+    //    parkingSpots = data.spots;
+    //  });
+    }
+
+    showParkingSpots(spots: any) {
+      // for(var spot in spots) {
+      //   let polygon = L.polygon(spot.latlong);
+      //   polygon.addTo(this.map);
+      // }
     }
 
     searchOSM() {
@@ -161,6 +176,8 @@ export class HomeComponent implements OnInit {
             } else {
               console.log(this.searchValue);
               console.log(this.searchValue[0].boundingbox[0] + ` - ` + this.searchValue[0].boundingbox[2]);
+              //this.searchSpots();
+              //this.showParkingSpots(parkingSpots);
               this.map.flyTo(new L.LatLng(this.searchValue[0].boundingbox[0], this.searchValue[0].boundingbox[2]), 18);
             }
           });
