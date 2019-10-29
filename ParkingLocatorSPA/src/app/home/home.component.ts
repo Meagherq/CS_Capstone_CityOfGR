@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModule } from '@angular/core';
 import { ParkingService } from 'src/services/parking.service';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 
 declare let L: any;
@@ -94,6 +95,13 @@ const parkingspot4 = [[
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
+
+    @NgModule({
+        imports: [
+            RouterModule
+        ],
+        declarations: [HomeComponent]
+    })
 export class HomeComponent implements OnInit {
 
     httpOptions = {
