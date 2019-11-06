@@ -2,10 +2,10 @@
 <mat-toolbar color="primary" class="mat-elevation-z6">
     <span class="title-center">City of Grand Rapids Interactive Parking Locator</span>
     <span class="example-spacer"></span>
-    <mat-icon svgIcon="magnify" class="search-icon"></mat-icon>
+    <!-- <mat-icon svgIcon="magnify" class="search-icon"></mat-icon>
     <mat-form-field class="search-bar">
         <input matInput type="search" placeholder="Search" class="search-input" [(ngModel)]="searchResult" (keydown)="onKeydown($event)" (focusout)="focusOutFunction()">
-    </mat-form-field>
+    </mat-form-field> -->
 </mat-toolbar>
 </div>
 <mat-sidenav-container class="sidenav-container">
@@ -23,7 +23,7 @@
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
-        <div class="grid-container">
+        <!-- <div class="grid-container">
             <div class="intro-card">
                 <mat-card class="large-card">
                     <mat-card-title>
@@ -46,9 +46,10 @@
                         </mat-card-content>
                     </mat-card>
                 </div>
-        </div>
-        <div id="map">
-        </div>
+        </div> -->
+        <!-- <div id="map">
+        </div> -->
+        <div class="map" id="map" class="match-parent"></div>
     </mat-sidenav-content>
 </mat-sidenav-container>
 

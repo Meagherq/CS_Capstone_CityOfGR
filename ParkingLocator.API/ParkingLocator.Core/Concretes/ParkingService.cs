@@ -1,10 +1,12 @@
 ﻿using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using ParkingLocator.Core.Entities;
 using ParkingLocator.Core.Helpers;
 using ParkingLocator.Core.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -125,6 +127,34 @@ namespace ParkingLocator.Core.Concretes
             }
             var parkingData = JsonConvert.DeserializeObject<JArray>(results);
             return results;
+        }
+
+        public async Task<List<Space>> GetSocrataMasterList()
+        {
+            string results = "";
+            List<Space> masterSpaces = new List<Space>();
+            var request = new HttpRequestMessage(HttpMethod.Get,
+            $"{ _options.Value.SocrataMasterEndpoint }");
+            var client = _clientFactory.CreateClient();
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                results = await response.Content.ReadAsStringAsync();
+            }
+            var parkingData = JsonConvert.DeserializeObject<List<RootObject>>(results);
+            parkingData.ForEach(x => 
+            {
+                masterSpaces.Add(new Space()
+                {
+                    ObjectId = x.objectid,
+                    MeterId = x.meterid,
+                    SpaceId = x.spaceid,
+                    BoundingBox = x.the_geom.coordinates.First().First()
+                });
+            });
+            return masterSpaces;
         }
     }
 }

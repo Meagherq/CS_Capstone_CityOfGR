@@ -2,6 +2,9 @@ import { Component, OnInit, NgModule } from '@angular/core';
 import { ParkingService } from 'src/services/parking.service';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import * as mapboxgl from 'mapbox-gl';
+import * as MapboxGeocoder from 'mapbox-gl-geocoder';
+import { environment } from 'src/environments/environment';
 
 
 declare let L: any;
@@ -114,7 +117,11 @@ export class HomeComponent implements OnInit {
     value: any[];
     searchValue: any;
     searchResult: any;
-    map: any;
+    // map: any;
+    map: mapboxgl.Map;
+    style = 'mapbox://styles/mapbox/streets-v11';
+    lat = 42.9638544;
+    lng = -85.6678109;
 
 
 
@@ -130,11 +137,33 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.map = L.map('map', {scrollWheelZoom: false}).setView(new L.LatLng(42.9638544, -85.6678109), 13);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(this.map);
+        // this.map = L.map('map', {scrollWheelZoom: false}).setView(new L.LatLng(42.9638544, -85.6678109), 13);
+        // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        //     attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        // }).addTo(this.map);
+        (mapboxgl as any).accessToken = environment.mapbox.accessToken;
+        this.map = new mapboxgl.Map({
+          container: 'map',
+          style: this.style,
+          zoom: 12.5,
+          center: [this.lng, this.lat]
+        });
 
+
+
+        const geocoder = new MapboxGeocoder({ // Initialize the geocoder
+            accessToken: mapboxgl.accessToken, // Set the access token
+            placeholder: 'Search for places in Grand Rapids',
+            country: 'US',
+            bbox: [-85.781, 42.9183, -85.5848, 43.0011],
+            clearOnBlur: true,
+            clearAndBlurOnEsc: true,
+            mapboxgl, // Set the mapbox-gl instance
+            marker: false, // Do not use the default marker style
+        });
+
+        this.map.addControl(geocoder);
+        this.map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
     }
 
     searchSpots() {
@@ -159,39 +188,39 @@ export class HomeComponent implements OnInit {
         this.searchResult = '';
       }
 
-      onKeydown(event: any) {
-        if (event.key === 'Enter') {
-          console.log(event);
-          console.log(this.searchResult);
-          const baseSearch = this.searchResult;
-          this.searchResult = this.searchResult + ` Grand Rapids Michigan`;
-          this.searchOSM().subscribe(x => {
-            this.searchValue = x;
+    //   onKeydown(event: any) {
+    //     if (event.key === 'Enter') {
+    //       console.log(event);
+    //       console.log(this.searchResult);
+    //       const baseSearch = this.searchResult;
+    //       this.searchResult = this.searchResult + ` Grand Rapids Michigan`;
+    //       this.searchOSM().subscribe(x => {
+    //         this.searchValue = x;
 
-            if (baseSearch === 'mySpot') {
-              const polygon = L.polygon(parkingspot);
-              const polygon2 = L.polygon(parkingspot2);
-              const polygon3 = L.polygon(parkingspot3);
-              const polygon4 = L.polygon(parkingspot4);
-              polygon.addTo(this.map);
-              polygon2.addTo(this.map);
-              polygon3.addTo(this.map);
-              polygon4.addTo(this.map);
-              polygon.setStyle({fillColor: '#dddddd'});
-              this.map.flyTo(new L.LatLng(    42.961997414251,
-                  -85.672467042291
-                  ), 18);
-            } else {
-              console.log(this.searchValue);
-              console.log(this.searchValue[0].boundingbox[0] + ` - ` + this.searchValue[0].boundingbox[2]);
-              //this.searchSpots();
-              //this.showParkingSpots(parkingSpots);
-              this.map.flyTo(new L.LatLng(this.searchValue[0].boundingbox[0], this.searchValue[0].boundingbox[2]), 18);
-            }
-          });
-          this.searchResult = '';
-          const showMap = document.getElementById('map');
-          showMap.scrollIntoView();
-        }
-      }
+    //         if (baseSearch === 'mySpot') {
+    //           const polygon = L.polygon(parkingspot);
+    //           const polygon2 = L.polygon(parkingspot2);
+    //           const polygon3 = L.polygon(parkingspot3);
+    //           const polygon4 = L.polygon(parkingspot4);
+    //           polygon.addTo(this.map);
+    //           polygon2.addTo(this.map);
+    //           polygon3.addTo(this.map);
+    //           polygon4.addTo(this.map);
+    //           polygon.setStyle({fillColor: '#dddddd'});
+    //           this.map.flyTo(new L.LatLng(    42.961997414251,
+    //               -85.672467042291
+    //               ), 18);
+    //         } else {
+    //           console.log(this.searchValue);
+    //           console.log(this.searchValue[0].boundingbox[0] + ` - ` + this.searchValue[0].boundingbox[2]);
+    //           //this.searchSpots();
+    //           //this.showParkingSpots(parkingSpots);
+    //           this.map.flyTo(new L.LatLng(this.searchValue[0].boundingbox[0], this.searchValue[0].boundingbox[2]), 18);
+    //         }
+    //       });
+    //       this.searchResult = '';
+    //       const showMap = document.getElementById('map');
+    //       showMap.scrollIntoView();
+    //     }
+    //   }
 }

@@ -59,9 +59,9 @@ namespace ParkingLocator.API.Controllers
 
         [ProducesResponseType(200)]
         [HttpGet("socrata")]
-        public async Task<ActionResult> GetSocrata()
+        public async Task<ActionResult> GetSocrataMasterList()
         {
-            var results = await _parkingService.GetSocrata();
+            var results = await _parkingService.GetSocrataMasterList();
             return Ok(results);
         }
     }

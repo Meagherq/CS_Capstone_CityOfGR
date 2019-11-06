@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ParkingLocator.Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,5 +13,6 @@ namespace ParkingLocator.Core.Interfaces
         Task<string> GetVeoci();
         Task<string> GetFlowbird();
         Task<string> GetSocrata();
+        Task<List<Space>> GetSocrataMasterList();
     }
 }
