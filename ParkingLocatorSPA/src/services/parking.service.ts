@@ -8,7 +8,7 @@ export class ParkingService {
 
 constructor(private http: HttpClient) { }
 
-getSocrata() {
+getSocrataMasterList() {
     return this.http.get('https://localhost:5000/api/Parking/socrata');
 }
 }

@@ -5,94 +5,96 @@ import { RouterModule } from '@angular/router';
 import * as mapboxgl from 'mapbox-gl';
 import * as MapboxGeocoder from 'mapbox-gl-geocoder';
 import { environment } from 'src/environments/environment';
+import { Feature } from 'geojson';
 
 
 declare let L: any;
-let parkingSpots: any[];
-const parkingspot =
-[[
-    42.966133652813,
-    -85.670216067712
-],
-[
-    42.966133652813,
-    -85.670215097108
-],
-[
-    42.966078458585,
-    -85.670248719741
-],
-[
-    42.966078458585,
-    -85.670215097108
-]];
+let parkingSpots: any;
+let Layer: mapboxgl.Layer;
+// const parkingspot =
+// [[
+//     42.966133652813,
+//     -85.670216067712
+// ],
+// [
+//     42.966133652813,
+//     -85.670215097108
+// ],
+// [
+//     42.966078458585,
+//     -85.670248719741
+// ],
+// [
+//     42.966078458585,
+//     -85.670215097108
+// ]];
 
-const parkingspot2 = [[
-    42.961997937653,
-    -85.672433426147
-    ],
-    [
-    42.961997414251,
-    -85.672467042291
-    ],
-    [
-    42.962052280431,
-    -85.672468625172
-    ],
-    [
-    42.962052803832,
-    -85.672435008999
-    ],
-    [
-    42.961997937653,
-    -85.672433426147
-    ]];
+// const parkingspot2 = [[
+//     42.961997937653,
+//     -85.672433426147
+//     ],
+//     [
+//     42.961997414251,
+//     -85.672467042291
+//     ],
+//     [
+//     42.962052280431,
+//     -85.672468625172
+//     ],
+//     [
+//     42.962052803832,
+//     -85.672435008999
+//     ],
+//     [
+//     42.961997937653,
+//     -85.672433426147
+//     ]];
 
-const parkingspot3 = [[
-            42.961770755288,
-            -85.666767464271
-        ],
-        [
-        42.961770103943,
-        -85.666801076388
-        ],
-        [
-        42.96182496394,
-        -85.666803047612
-        ],
-        [
-        42.961825615286,
-        -85.666769435465
-        ],
-        [
-         42.961770755288,
-        -85.666767464271
-        ]];
-const parkingspot4 = [[
-            42.9756814769,
-            -85.672714419956
+// const parkingspot3 = [[
+//             42.961770755288,
+//             -85.666767464271
+//         ],
+//         [
+//         42.961770103943,
+//         -85.666801076388
+//         ],
+//         [
+//         42.96182496394,
+//         -85.666803047612
+//         ],
+//         [
+//         42.961825615286,
+//         -85.666769435465
+//         ],
+//         [
+//          42.961770755288,
+//         -85.666767464271
+//         ]];
+// const parkingspot4 = [[
+//             42.9756814769,
+//             -85.672714419956
 
-            ],
-            [
-             42.975656961224,
-            -85.672718469417
+//             ],
+//             [
+//              42.975656961224,
+//             -85.672718469417
 
-            ],
-            [
-            42.975663569971,
-            -85.672792662621
+//             ],
+//             [
+//             42.975663569971,
+//             -85.672792662621
 
-            ],
-            [
-             42.975688085663,
-            -85.672788611964
+//             ],
+//             [
+//              42.975688085663,
+//             -85.672788611964
 
-            ],
-            [
-            42.9756814769,
-            -85.672714419956
+//             ],
+//             [
+//             42.9756814769,
+//             -85.672714419956
 
-            ]];
+//             ]];
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -117,12 +119,11 @@ export class HomeComponent implements OnInit {
     value: any[];
     searchValue: any;
     searchResult: any;
-    // map: any;
     map: mapboxgl.Map;
     style = 'mapbox://styles/mapbox/streets-v11';
     lat = 42.9638544;
     lng = -85.6678109;
-
+    geoArray: Array<Feature> = new Array<Feature>();
 
 
 
@@ -137,10 +138,6 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        // this.map = L.map('map', {scrollWheelZoom: false}).setView(new L.LatLng(42.9638544, -85.6678109), 13);
-        // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        //     attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        // }).addTo(this.map);
         (mapboxgl as any).accessToken = environment.mapbox.accessToken;
         this.map = new mapboxgl.Map({
           container: 'map',
@@ -148,8 +145,6 @@ export class HomeComponent implements OnInit {
           zoom: 12.5,
           center: [this.lng, this.lat]
         });
-
-
 
         const geocoder = new MapboxGeocoder({ // Initialize the geocoder
             accessToken: mapboxgl.accessToken, // Set the access token
@@ -159,35 +154,83 @@ export class HomeComponent implements OnInit {
             clearOnBlur: true,
             clearAndBlurOnEsc: true,
             mapboxgl, // Set the mapbox-gl instance
-            marker: false, // Do not use the default marker style
+            marker: false,
         });
 
         this.map.addControl(geocoder);
         this.map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+
+        this.mapParkingSpots();
+
+        //find current location and nav to
+        // if (navigator.geolocation) {
+        //     navigator.geolocation.getCurrentPosition(position => {
+        //      this.lat = position.coords.latitude;
+        //      this.lng = position.coords.longitude;
+        //      this.map.flyTo({
+        //        center: [this.lng, this.lat]
+        //      })
+        //    });
+        // }
+
+        }
+
+    mapParkingSpots() {
+        this.parkingService.getSocrataMasterList().subscribe(data => {
+
+
+            let socrataMaster: any = data;
+            console.log(socrataMaster);
+            socrataMaster.forEach(element => {
+                const geojson: Feature = {
+                    'id': element.objectId.toString(),
+                    'type': 'Feature',
+                    'geometry': {
+                        'type': 'Polygon',
+                        'coordinates': [
+                            // element.boundingBox[0][0], element.boundingBox[0][1], element.boundingBox[2][0], element.boundingBox[2][1]
+                            [
+                                [
+                                    element.boundingBox[0][0], element.boundingBox[0][1]
+                                ],
+                                [
+                                    element.boundingBox[1][0], element.boundingBox[1][1]
+                                ],
+                                [
+                                    element.boundingBox[2][0], element.boundingBox[2][1]
+                                ],
+                                [
+                                    element.boundingBox[3][0], element.boundingBox[3][1]
+                                ]
+                            ],
+
+                        ],
+                    },
+                    'properties': {
+                    }
+                };
+                this.geoArray.push(geojson);
+            });
+            this.map.addSource('grspaces', {
+                type: 'geojson',
+                data: {
+                    type: 'FeatureCollection',
+                    features: this.geoArray
+                },
+            });
+            this.map.addLayer({
+                'id': 'masterSpaces',
+                'type': 'fill',
+                source: 'grspaces'
+            });
+          });
     }
 
-    searchSpots() {
-    //  this.parkingService.getSocrata().subscribe(data =>{
-    //    parkingSpots = data.spots;
-    //  });
-    }
-
-    showParkingSpots(spots: any) {
-      // for(var spot in spots) {
-      //   let polygon = L.polygon(spot.latlong);
-      //   polygon.addTo(this.map);
-      // }
-    }
-
-    searchOSM() {
-        return this.http.get(`https://nominatim.openstreetmap.org/?format=json&addressdetails=1&q=${this.searchResult}&format=json&limit=1`
-        , this.httpOptions);
-    }
 
     focusOutFunction() {
         this.searchResult = '';
       }
-
+    // Old function still here for no reason
     //   onKeydown(event: any) {
     //     if (event.key === 'Enter') {
     //       console.log(event);
