@@ -9,8 +9,8 @@ import { Feature } from 'geojson';
 
 
 declare let L: any;
-let parkingSpots: any;
-let Layer: mapboxgl.Layer;
+// let parkingSpots: any;
+// let Layer: mapboxgl.Layer;
 // const parkingspot =
 // [[
 //     42.966133652813,
@@ -142,7 +142,7 @@ export class HomeComponent implements OnInit {
         this.map = new mapboxgl.Map({
           container: 'map',
           style: this.style,
-          zoom: 12.5,
+          zoom: 13,
           center: [this.lng, this.lat]
         });
 
@@ -162,7 +162,15 @@ export class HomeComponent implements OnInit {
 
         this.mapParkingSpots();
 
-        //find current location and nav to
+        this.map.on('mouseenter', 'masterSpaces', () => {
+            this.map.getCanvas().style.cursor = 'pointer';
+            });
+
+        this.map.on('mouseleave', 'masterSpaces', () => {
+            this.map.getCanvas().style.cursor = '';
+            });
+
+        // find current location and nav to
         // if (navigator.geolocation) {
         //     navigator.geolocation.getCurrentPosition(position => {
         //      this.lat = position.coords.latitude;
@@ -179,15 +187,15 @@ export class HomeComponent implements OnInit {
         this.parkingService.getSocrataMasterList().subscribe(data => {
 
 
-            let socrataMaster: any = data;
+            const socrataMaster: any = data;
             console.log(socrataMaster);
             socrataMaster.forEach(element => {
                 const geojson: Feature = {
-                    'id': element.objectId.toString(),
-                    'type': 'Feature',
-                    'geometry': {
-                        'type': 'Polygon',
-                        'coordinates': [
+                    id: element.objectId.toString(),
+                    type: 'Feature',
+                    geometry: {
+                        type: 'Polygon',
+                        coordinates: [
                             // element.boundingBox[0][0], element.boundingBox[0][1], element.boundingBox[2][0], element.boundingBox[2][1]
                             [
                                 [
@@ -206,7 +214,7 @@ export class HomeComponent implements OnInit {
 
                         ],
                     },
-                    'properties': {
+                    properties: {
                     }
                 };
                 this.geoArray.push(geojson);
@@ -219,9 +227,14 @@ export class HomeComponent implements OnInit {
                 },
             });
             this.map.addLayer({
-                'id': 'masterSpaces',
-                'type': 'fill',
-                source: 'grspaces'
+                id: 'masterSpaces',
+                type: 'fill',
+                source: 'grspaces',
+                minzoom: 15,
+                paint: {
+                    'fill-color': '#00cc00',
+                    'fill-outline-color': '#000000',
+                },
             });
           });
     }
