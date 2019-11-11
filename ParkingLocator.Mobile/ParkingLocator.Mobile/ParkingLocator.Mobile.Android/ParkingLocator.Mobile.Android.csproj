@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{62EBD38E-F7DB-47C4-869D-4A290D10CBD0}</ProjectGuid>
+    <ProjectGuid>{376F4882-41DA-4B48-8C9B-4C52ABC7C6AC}</ProjectGuid>
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TemplateGuid>{c9e5eea5-ca05-42a1-839b-61506e0a37df}</TemplateGuid>
     <OutputType>Library</OutputType>
@@ -90,9 +90,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ParkingLocator.Mobile\ParkingLocator.Mobile.csproj">
-      <Project>{B83B55A0-7412-4D14-9F72-E2B3ECE760C3}</Project>
+      <Project>{6CC436D1-3B86-42A6-8136-CD3567AF2F68}</Project>
       <Name>ParkingLocator.Mobile</Name>
     </ProjectReference>
   </ItemGroup>
- <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
