@@ -6,6 +6,7 @@ import * as mapboxgl from 'mapbox-gl';
 import * as MapboxGeocoder from 'mapbox-gl-geocoder';
 import { environment } from 'src/environments/environment';
 import { Feature } from 'geojson';
+import { BreakpointNotifierService } from 'src/services/breakpoint-notifier.service';
 
 
 declare let L: any;
@@ -47,11 +48,20 @@ export class HomeComponent implements OnInit {
         { displayText: 'Resources', path: 'resources', icon: 'web' },
         { displayText: 'Settings', path: 'settings', icon: 'settings-outline' },
       ];
-    constructor(private parkingService: ParkingService, private http: HttpClient) {
-
+    constructor(private parkingService: ParkingService,private breakpointNotifierService: BreakpointNotifierService, private http: HttpClient) {
+       
     }
 
     ngOnInit() {
+        window.onresize = (e) =>
+        {
+            console.log(self.innerWidth);
+            if(window.innerWidth <= 500) {
+                this.breakpointNotifierService.thisIsMobile(true);
+            }else {
+                this.breakpointNotifierService.thisIsMobile(false);
+            }
+        };
         (mapboxgl as any).accessToken = environment.mapbox.accessToken;
         this.map = new mapboxgl.Map({
           container: 'map',
