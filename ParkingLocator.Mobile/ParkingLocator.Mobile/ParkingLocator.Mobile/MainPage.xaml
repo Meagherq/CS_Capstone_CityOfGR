@@ -6,11 +6,10 @@
              mc:Ignorable="d"
              x:Class="ParkingLocator.Mobile.MainPage">
 
-    <StackLayout>
-        <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
-    </StackLayout>
-
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <WebView Source="http://10.0.2.2:4200/" Grid.Row="0"/>
+    </Grid>
 </ContentPage>
