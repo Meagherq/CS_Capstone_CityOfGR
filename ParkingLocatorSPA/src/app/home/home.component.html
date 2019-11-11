@@ -2,10 +2,6 @@
 <mat-toolbar color="primary" class="mat-elevation-z6">
     <span class="title-center">City of Grand Rapids Interactive Parking Locator</span>
     <span class="example-spacer"></span>
-    <!-- <mat-icon svgIcon="magnify" class="search-icon"></mat-icon>
-    <mat-form-field class="search-bar">
-        <input matInput type="search" placeholder="Search" class="search-input" [(ngModel)]="searchResult" (keydown)="onKeydown($event)" (focusout)="focusOutFunction()">
-    </mat-form-field> -->
 </mat-toolbar>
 </div>
 <mat-sidenav-container class="sidenav-container">
@@ -19,126 +15,9 @@
                 <p class="parking-stats">{{this.availableSpots}} spots</p>
                 <mat-divider></mat-divider>
             </div>
-            
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
-        <!-- <div class="grid-container">
-            <div class="intro-card">
-                <mat-card class="large-card">
-                    <mat-card-title>
-                        Let's Find You a Parking Spot!
-                    </mat-card-title>
-                    <mat-card-content class="main-content">
-                        The Grand Rapids Parking Locator app helps you find available parking when traveling downtown. Locate spots by typing in the name or address of your desired location into the search bar.
-                        This app was made as a capstone project for Grand Valley's School of Computer Science together with the City of Grand Rapids.
-                    </mat-card-content>
-                </mat-card>
-            </div>
-            <div class="intro-card">
-                    <mat-card class="large-card">
-                        <mat-card-title>
-                            How About a Dash Lot?
-                        </mat-card-title>
-                        <mat-card-content class="main-content">
-                            Grand Rapids offers a shuttle service known as DASH which connects to various public parking lots.<br>Click here to show lots associated with the Downtown Area Shuttle.
-                            <br><button class="mat-elevation-z5 dash-button" color="primary" mat-button>SHOW DASH LOTS</button>
-                        </mat-card-content>
-                    </mat-card>
-                </div>
-        </div> -->
-        <!-- <div id="map">
-        </div> -->
         <div class="map" id="map" class="match-parent"></div>
     </mat-sidenav-content>
 </mat-sidenav-container>
-
-
-
-
-
-
-
-<!-- <nb-layout>
-    <nb-layout-header size="medium" fixed>
-      <h1 class="text-center">Grand Rapids Parking Locator</h1>
-    </nb-layout-header>
-    <nb-layout-header subheader>
-      <nb-actions size="medium">
-        <nb-action>HOME</nb-action>
-        <nb-action>EVENTS</nb-action>
-        <nb-action>CONTACT US</nb-action>
-      </nb-actions>
-      <nb-search text-heading-1-font-size="1rem" type="rotate-layout"></nb-search>
-      <p id="loc-header" text-basic-color>Enter a Location</p>
-    </nb-layout-header>
-  <nb-layout-column>
-    <nb-card accent=info>
-        <nb-card-header>Let's find you a spot!</nb-card-header>
-            <nb-card-body>
-                <div id="map">
-                </div>
-            </nb-card-body>
-    </nb-card>
-    <nb-flip-card>
-            <nb-card-front>
-              <nb-card size=small accent=info>
-                <nb-card-header>Todays Weather</nb-card-header>
-                <nb-card-body>
-                    <span>{{searchValue}}</span>
-                    <span>Grand Rapids </span>
-                    <span> Wednesday September 11</span>
-                    <div class="today">
-                      <span>20&deg;</span>
-                      <nb-icon icon="sun-outline" pack="eva" class="today-icon"></nb-icon>
-                    </div>              
-                    <div class="today-details">
-                      <div class="parameter">
-                        <span class="parameter-name">max </span>
-                        <span class="parameter-value"> 23&deg;</span>
-                      </div>
-                      <div class="parameter">
-                        <span class="parameter-name">min </span>
-                        <span class="parameter-value"> 19&deg;</span>
-                      </div>
-                      <div class="parameter">
-                        <span class="parameter-name">wind </span>
-                        <span class="parameter-value"> 4 km/h</span>
-                      </div>
-                      <div class="parameter">
-                        <span class="parameter-name">hum </span>
-                        <span class="parameter-value"> 87%</span>
-                      </div>
-                    </div>
-                </nb-card-body>
-              </nb-card>
-            </nb-card-front>
-            <nb-card-back>
-              <nb-card size=small accent=info>
-                <nb-card-header>Weekly Forecast</nb-card-header>
-                <nb-card-body>
-                    <div class="weekly-forecast">
-                        <div class="day">
-                          <span>Sun </span>
-                          <span class="temperature"> 17&deg;</span>
-                        </div>
-                        <div class="day">
-                          <span>Mon </span>
-                          <span class="temperature"> 19&deg;</span>
-                        </div>
-                        <div class="day">
-                          <span>Tue </span>
-                          <span class="temperature"> 22&deg;</span>
-                        </div>
-                        <div class="day">
-                          <span>Wed </span>
-                          <span class="temperature"> 21&deg;</span>
-                        </div>
-                      </div>
-                </nb-card-body>
-              </nb-card>
-            </nb-card-back>
-          </nb-flip-card>
-  </nb-layout-column>
-  <nb-layout-footer fixed=true>Authored by: Quinn Meagher | Atone Joryman | Gabriel Fountain</nb-layout-footer>
-</nb-layout> -->
