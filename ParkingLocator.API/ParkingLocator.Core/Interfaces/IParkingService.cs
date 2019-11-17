@@ -12,7 +12,7 @@ namespace ParkingLocator.Core.Interfaces
         Task<string> GetZoneInfoPassport();
         Task<string> GetVeoci();
         Task<string> GetFlowbird();
-        Task<string> GetSocrata();
+        Task<string> GetSocrataActiveSession();
         Task<List<Space>> GetSocrataMasterList();
     }
 }

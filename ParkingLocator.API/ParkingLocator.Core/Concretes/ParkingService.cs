@@ -100,7 +100,7 @@ namespace ParkingLocator.Core.Concretes
             return results;
         }
 
-        public async Task<string> GetSocrata()
+        public async Task<string> GetSocrataActiveSession()
         {
             string results = "";
             string token = _options.Value.SocrataClientId + ":" + _options.Value.SocrataClientSecret;
@@ -109,14 +109,11 @@ namespace ParkingLocator.Core.Concretes
 
             var request = new HttpRequestMessage(HttpMethod.Get,
             $"{ _options.Value.SocrataEndpoint }");
-            //"$where=within_circle(the_geom, -85.67, 42.97, 1000)");
-            //request.Headers.Add("Host", "data.grandrapidsmi.gov");
-            request.Headers.Add("Accept", "application/json");
-            //request.Headers.Add("Content-Length", "253");
-            //request.Headers.Add("Content-Type", "application/json");
+
             request.Headers.Add("X-App-Token", _options.Value.SocrataAdminKey);
             request.Headers.Add("Authorization", $"Basic {token}");
-
+            request.Headers.Add("Host", "data.grandrapidsmi.gov");
+            request.Headers.Add("Connection", "keep-alive");
             var client = _clientFactory.CreateClient();
 
             var response = await client.SendAsync(request);
@@ -125,7 +122,7 @@ namespace ParkingLocator.Core.Concretes
             {
                 results = await response.Content.ReadAsStringAsync();
             }
-            var parkingData = JsonConvert.DeserializeObject<JArray>(results);
+            //var parkingData = JsonConvert.DeserializeObject<JArray>(results);
             return results;
         }
 
@@ -134,7 +131,9 @@ namespace ParkingLocator.Core.Concretes
             string results = "";
             List<Space> masterSpaces = new List<Space>();
             var request = new HttpRequestMessage(HttpMethod.Get,
-            $"{ _options.Value.SocrataMasterEndpoint }");
+            _options.Value.SocrataMasterEndpoint + "?$limit=5000");
+
+
             var client = _clientFactory.CreateClient();
 
             var response = await client.SendAsync(request);

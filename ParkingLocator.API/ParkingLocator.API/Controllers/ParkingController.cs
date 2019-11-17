@@ -64,5 +64,13 @@ namespace ParkingLocator.API.Controllers
             var results = await _parkingService.GetSocrataMasterList();
             return Ok(results);
         }
+
+        [ProducesResponseType(200)]
+        [HttpGet("activesocrata")]
+        public async Task<ActionResult> GetSocrataActiveSession()
+        {
+            var results = await _parkingService.GetSocrataActiveSession();
+            return Ok(results);
+        }
     }
 }

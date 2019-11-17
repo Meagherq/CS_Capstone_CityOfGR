@@ -62,7 +62,7 @@ export class HomeComponent implements OnInit {
 
         const geocoder = new MapboxGeocoder({ // Initialize the geocoder
             accessToken: mapboxgl.accessToken, // Set the access token
-            placeholder: 'Search for places in Grand Rapids',
+            placeholder: 'Search for Places in Grand Rapids',
             country: 'US',
             bbox: [-85.781, 42.9183, -85.5848, 43.0011],
             clearOnBlur: true,
