@@ -7,9 +7,9 @@ namespace ParkingLocator.Core.Entities
     public class RootObject
     {
         public TheGeom the_geom { get; set; }
-        public string objectid { get; set; }
-        public string meterid { get; set; }
-        public string spaceid { get; set; }
+        public int objectid { get; set; }
+        public string meter_id { get; set; }
+        public string space_id { get; set; }
         public string mobile_pay_zone { get; set; }
         public string space_type { get; set; }
         public string space_size { get; set; }

@@ -6,7 +6,7 @@
 }
 
 #map {
-    height: 590px;
+    height: 91vh;
     width: 100%;
     flex: 1;
     // margin-top: 10px;
@@ -20,6 +20,10 @@
 
 .dash-button {
     height: 43px;
+}
+
+.main-header {
+    overflow: auto;
 }
 
 .search-card {

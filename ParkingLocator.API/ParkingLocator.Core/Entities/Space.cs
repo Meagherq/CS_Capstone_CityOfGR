@@ -6,7 +6,7 @@ namespace ParkingLocator.Core.Entities
 {
     public class Space
     {
-        public string ObjectId { get; set; }
+        public int ObjectId { get; set; }
         public List<List<double>> BoundingBox { get; set; }
         public string SpaceId { get; set; }
         public string MeterId { get; set; }
@@ -16,8 +16,8 @@ namespace ParkingLocator.Core.Entities
         //public string SideOfStreet { get; set; }
         //public string ToStreet { get; set; }
         //public string FromStreet { get; set; }
-        //public string OperationalDays { get; set; }
-        //public string OperationalHours { get; set; }
+        public string OperationalDays { get; set; }
+        public string OperationalHours { get; set; }
         //public string EnforcementType { get; set; }
         //public string PaymentType { get; set; }
         //public double Rate { get; set; }

@@ -8,11 +8,8 @@ namespace ParkingLocator.Core.Interfaces
 {
     public interface IParkingService
     {
-        Task<string> GetZoneListPassport();
-        Task<string> GetZoneInfoPassport();
-        Task<string> GetVeoci();
-        Task<string> GetFlowbird();
-        Task<string> GetSocrataActiveSession();
+        Task<List<ActiveRootObject>> GetSocrataActiveSession();
         Task<List<Space>> GetSocrataMasterList();
+        Task UpdateMap();
     }
 }
