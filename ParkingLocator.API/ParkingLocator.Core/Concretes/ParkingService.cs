@@ -147,14 +147,22 @@ namespace ParkingLocator.Core.Concretes
                     var unAddedSpots = masterList.Where(x => !checkedSpacesList.Any(y => x.ObjectId == y));
                     foreach (var item in unAddedSpots)
                     {
-                        if (item.OperationalHours != "24 hour")
+                        if (item.OperationalHours != null)
                         {
-                            greySpaces.Add(item);
+                            if (IsSpaceEnforceable(item.OperationalHours))
+                            {
+                                greenSpaces.Add(item);
+                            }
+                            else
+                            {
+                                greySpaces.Add(item);
+                            }
                         }
                         else
                         {
                             greenSpaces.Add(item);
                         }
+
                     }
                     mapLayoutPackage.Add(greenSpaces);
                     mapLayoutPackage.Add(redSpaces);
@@ -194,15 +202,22 @@ namespace ParkingLocator.Core.Concretes
         public bool IsSpaceEnforceable(string time)
         {
             var currentTime = DateTime.Now.TimeOfDay;
-            if (time != "24 hour")
+            if (time != null && time != "<Null>")
             {
-                if (DateTime.Now.DayOfWeek != DayOfWeek.Saturday || DateTime.Now.DayOfWeek != DayOfWeek.Sunday)
+                if (time != "24 hour")
                 {
-                    var endEnforcement = TimeSpan.FromHours(Convert.ToInt32(time.Substring(7, 1)) + 12);
-                    var startEnforcement = TimeSpan.FromHours(Convert.ToInt32(time.Substring(0, 1)));
-                    if (currentTime > startEnforcement && currentTime < endEnforcement)
+                    if (DateTime.Now.DayOfWeek != DayOfWeek.Saturday || DateTime.Now.DayOfWeek != DayOfWeek.Sunday)
                     {
-                        return true;
+                        var endEnforcement = TimeSpan.FromHours(Convert.ToInt32(time.Substring(7, 1)) + 12);
+                        var startEnforcement = TimeSpan.FromHours(Convert.ToInt32(time.Substring(0, 1)));
+                        if (currentTime > startEnforcement && currentTime < endEnforcement)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
                     }
                     else
                     {
@@ -211,13 +226,13 @@ namespace ParkingLocator.Core.Concretes
                 }
                 else
                 {
-                    return false;
+                    return true;
                 }
             }
             else
             {
-                return true;
-            }
+                return false;
+            }  
         }
     }
 }
