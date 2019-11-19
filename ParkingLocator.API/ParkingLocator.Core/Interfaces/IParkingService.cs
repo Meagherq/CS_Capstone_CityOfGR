@@ -11,5 +11,6 @@ namespace ParkingLocator.Core.Interfaces
         Task<List<ActiveRootObject>> GetSocrataActiveSession();
         Task<List<Space>> GetSocrataMasterList();
         Task UpdateMap();
+        Task<List<List<Space>>> GetFinalSpaces();
     }
 }

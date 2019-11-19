@@ -16,11 +16,11 @@ namespace ParkingLocator.API.Controllers
         }
 
         [ProducesResponseType(200)]
-        [HttpGet("flowbird")]
-        public async Task<ActionResult> GetFlowbird()
+        [HttpGet("spaces")]
+        public async Task<ActionResult> GetFinalSpaces()
         {
-            await _parkingService.UpdateMap();
-            return Ok();
+            var result = await _parkingService.GetFinalSpaces();
+            return Ok(result);
         }
 
         [ProducesResponseType(200)]

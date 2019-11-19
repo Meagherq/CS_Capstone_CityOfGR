@@ -7,12 +7,12 @@
 <mat-sidenav-container class="sidenav-container">
     <mat-sidenav class="sidenav" opened mode="side">
         <mat-nav-list class="nav-list">       
-            <a class="menu-item" *ngFor="let link of links" routerLink="/{{link.path}}" mat-list-item><mat-icon color="primary" style="margin-right: 8px;" svgIcon={{link.icon}}></mat-icon><mat-divider></mat-divider>{{link.displayText}}</a>     
-            <br>
+            <a class="menu-item" *ngFor="let link of links" routerLink="/{{link.path}}" mat-list-item><mat-icon color="primary" style="margin-right: 8px;" svgIcon={{link.icon}}></mat-icon><mat-divider></mat-divider>{{link.displayText}}</a>
             <div>
-                <mat-divider></mat-divider>
-                <p class="parking-stats-header">Available Spots</p>
-                <p class="parking-stats">{{this.availableSpots}} spots</p>
+                <p *ngIf="isAvailable" class="parking-stats-header">Available Spots</p>
+                <p *ngIf="isAvailable" class="parking-stats">near</p>
+                <p *ngIf="isAvailable" class="parking-stats">{{this.searchLocation}}</p>
+                <p *ngIf="isAvailable" class="parking-stats">{{this.availableSpots}} Spots</p>
                 <mat-divider></mat-divider>
             </div>
         </mat-nav-list>

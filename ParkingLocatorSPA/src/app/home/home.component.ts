@@ -28,16 +28,20 @@ export class HomeComponent implements OnInit {
             'Content-Type':  'application/json',
         }),
     };
-    availableSpots: any = 0;
+    availableSpots: any;
     title = 'ParkingLocatorSPA';
     value: any[];
+    isAvailable = false;
     searchValue: any;
     searchResult: any;
+    searchLocation: any;
     map: mapboxgl.Map;
     style = 'mapbox://styles/mapbox/streets-v11';
     lat = 42.9638544;
     lng = -85.6678109;
-    geoArray: Array<Feature> = new Array<Feature>();
+    greenArray: Array<Feature> = new Array<Feature>();
+    redArray: Array<Feature> = new Array<Feature>();
+    greyArray: Array<Feature> = new Array<Feature>();
 
 
 
@@ -64,9 +68,9 @@ export class HomeComponent implements OnInit {
             accessToken: mapboxgl.accessToken, // Set the access token
             placeholder: 'Search for Places in Grand Rapids',
             country: 'US',
+            zoom: 17,
             bbox: [-85.781, 42.9183, -85.5848, 43.0011],
             clearOnBlur: true,
-            clearAndBlurOnEsc: true,
             mapboxgl, // Set the mapbox-gl instance
             marker: false,
         });
@@ -76,13 +80,43 @@ export class HomeComponent implements OnInit {
 
         this.mapParkingSpots();
 
-        this.map.on('mouseenter', 'masterSpaces', () => {
+        this.map.on('mouseenter', 'greenMasterSpaces', () => {
             this.map.getCanvas().style.cursor = 'pointer';
-            });
-
-        this.map.on('mouseleave', 'masterSpaces', () => {
+        });
+        this.map.on('mouseleave', 'greenMasterSpaces', () => {
             this.map.getCanvas().style.cursor = '';
-            });
+        });
+        this.map.on('mouseenter', 'redMasterSpaces', () => {
+            this.map.getCanvas().style.cursor = 'pointer';
+        });
+        this.map.on('mouseleave', 'redMasterSpaces', () => {
+            this.map.getCanvas().style.cursor = '';
+        });
+        this.map.on('mouseenter', 'greyMasterSpaces', () => {
+            this.map.getCanvas().style.cursor = 'pointer';
+        });
+        this.map.on('mouseleave', 'greyMasterSpaces', () => {
+            this.map.getCanvas().style.cursor = '';
+        });
+        geocoder.on('result', async (e) => {
+            // geocoder.setInput('');
+            console.log(e);
+            this.searchLocation = e.result.text;
+            this.availableSpots = 'Calculating';
+            this.isAvailable = true;
+            await this.delay(2200);
+            const element = document.getElementById('map');
+            const positionInfo = element.getBoundingClientRect();
+            const height = positionInfo.height;
+            const width = positionInfo.width;
+            const point = this.map.project(e.result.geometry.coordinates);
+            console.log(e.result.geometry.coordinates[0] + ' : ' + e.result.geometry.coordinates[1]);
+            const bbox: [mapboxgl.PointLike, mapboxgl.PointLike] =
+            [[point.x - (width * .5), point.y - (height * .5)],
+            [point.x + (width * .5), point.y + (height * .5)]];
+            const features = this.map.queryRenderedFeatures(bbox, { layers: ['greyMasterSpaces'] });
+            this.availableSpots = features.length;
+        });
 
         // find current location and nav to
         // if (navigator.geolocation) {
@@ -94,56 +128,148 @@ export class HomeComponent implements OnInit {
         //      })
         //    });
         // }
-
         }
+
+    delay(ms: number) {
+        return new Promise( resolve => setTimeout(resolve, ms) );
+    }
 
     mapParkingSpots() {
         this.parkingService.getSocrataMasterList().subscribe(data => {
             const socrataMaster: any = data;
             console.log(socrataMaster);
-            socrataMaster.forEach(element => {
-                const geojson: Feature = {
-                    id: element.objectId.toString(),
-                    type: 'Feature',
-                    geometry: {
-                        type: 'Polygon',
-                        coordinates: [
-                            [
+            socrataMaster[0].forEach(greenList => {
+                    const greenjson: Feature = {
+                        id: greenList.objectId.toString(),
+                        type: 'Feature',
+                        geometry: {
+                            type: 'Polygon',
+                            coordinates: [
                                 [
-                                    element.boundingBox[0][0], element.boundingBox[0][1]
+                                    [
+                                        greenList.boundingBox[0][0], greenList.boundingBox[0][1]
+                                    ],
+                                    [
+                                        greenList.boundingBox[1][0], greenList.boundingBox[1][1]
+                                    ],
+                                    [
+                                        greenList.boundingBox[2][0], greenList.boundingBox[2][1]
+                                    ],
+                                    [
+                                        greenList.boundingBox[3][0], greenList.boundingBox[3][1]
+                                    ]
                                 ],
-                                [
-                                    element.boundingBox[1][0], element.boundingBox[1][1]
-                                ],
-                                [
-                                    element.boundingBox[2][0], element.boundingBox[2][1]
-                                ],
-                                [
-                                    element.boundingBox[3][0], element.boundingBox[3][1]
-                                ]
                             ],
-
-                        ],
-                    },
-                    properties: {
-                    }
-                };
-                this.geoArray.push(geojson);
-            });
-            this.map.addSource('grspaces', {
+                        },
+                        properties: {
+                        }
+                    };
+                    this.greenArray.push(greenjson);
+                });
+            socrataMaster[1].forEach(redList => {
+                    const redjson: Feature = {
+                        id: redList.objectId.toString(),
+                        type: 'Feature',
+                        geometry: {
+                            type: 'Polygon',
+                            coordinates: [
+                                [
+                                    [
+                                        redList.boundingBox[0][0], redList.boundingBox[0][1]
+                                    ],
+                                    [
+                                        redList.boundingBox[1][0], redList.boundingBox[1][1]
+                                    ],
+                                    [
+                                        redList.boundingBox[2][0], redList.boundingBox[2][1]
+                                    ],
+                                    [
+                                        redList.boundingBox[3][0], redList.boundingBox[3][1]
+                                    ]
+                                ],
+                            ],
+                        },
+                        properties: {
+                        }
+                    };
+                    this.redArray.push(redjson);
+                });
+            socrataMaster[2].forEach(greyList => {
+                    const greyjson: Feature = {
+                        id: greyList.objectId.toString(),
+                        type: 'Feature',
+                        geometry: {
+                            type: 'Polygon',
+                            coordinates: [
+                                [
+                                    [
+                                        greyList.boundingBox[0][0], greyList.boundingBox[0][1]
+                                    ],
+                                    [
+                                        greyList.boundingBox[1][0], greyList.boundingBox[1][1]
+                                    ],
+                                    [
+                                        greyList.boundingBox[2][0], greyList.boundingBox[2][1]
+                                    ],
+                                    [
+                                        greyList.boundingBox[3][0], greyList.boundingBox[3][1]
+                                    ]
+                                ],
+                            ],
+                        },
+                        properties: {
+                        }
+                    };
+                    this.greyArray.push(greyjson);
+                });
+            this.map.addSource('greengrspaces', {
                 type: 'geojson',
                 data: {
                     type: 'FeatureCollection',
-                    features: this.geoArray
+                    features: this.greenArray
+                },
+            });
+            this.map.addSource('redgrspaces', {
+                type: 'geojson',
+                data: {
+                    type: 'FeatureCollection',
+                    features: this.redArray
+                },
+            });
+            this.map.addSource('greygrspaces', {
+                type: 'geojson',
+                data: {
+                    type: 'FeatureCollection',
+                    features: this.greyArray
                 },
             });
             this.map.addLayer({
-                id: 'masterSpaces',
+                id: 'greenMasterSpaces',
                 type: 'fill',
-                source: 'grspaces',
+                source: 'greengrspaces',
                 minzoom: 15,
                 paint: {
                     'fill-color': '#00cc00',
+                    'fill-outline-color': '#000000',
+                },
+            });
+            this.map.addLayer({
+                id: 'redMasterSpaces',
+                type: 'fill',
+                source: 'redgrspaces',
+                minzoom: 15,
+                paint: {
+                    'fill-color': '#f03b20',
+                    'fill-outline-color': '#000000',
+                },
+            });
+            this.map.addLayer({
+                id: 'greyMasterSpaces',
+                type: 'fill',
+                source: 'greygrspaces',
+                minzoom: 15,
+                paint: {
+                    'fill-color': '#808080',
                     'fill-outline-color': '#000000',
                 },
             });

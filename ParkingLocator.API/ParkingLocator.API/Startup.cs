@@ -46,7 +46,7 @@ namespace ParkingLocator.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IParkingService parkingService)
         {
             if (env.IsDevelopment())
             {
@@ -66,6 +66,7 @@ namespace ParkingLocator.API
             app.UseHttpsRedirection();
             app.UseMvc();
             app.UseCors(MyAllowSpecificOrigins);
+            parkingService.UpdateMap();
         }
     }
 }

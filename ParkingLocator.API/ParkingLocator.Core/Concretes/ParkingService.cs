@@ -19,7 +19,7 @@ namespace ParkingLocator.Core.Concretes
         private readonly IHttpClientFactory _clientFactory;
         private readonly IOptions<ParkingKeyOptions> _options;
 
-        public static List<List<Space>> finalSpaces = new List<List<Space>>();
+        public static List<List<Space>> finalSpaces;
         public ParkingService(IHttpClientFactory clientFactory, IOptions<ParkingKeyOptions> options)
         {
             _clientFactory = clientFactory;
@@ -99,6 +99,27 @@ namespace ParkingLocator.Core.Concretes
             {
                 try
                 {
+                    if (redSpaces != null)
+                    {
+                        if (redSpaces.Any())
+                        {
+                            redSpaces.Clear();
+                        }
+                    }
+                    if (greenSpaces != null)
+                    {
+                        if (greenSpaces.Any())
+                        {
+                            greenSpaces.Clear();
+                        }
+                    }
+                    if (greySpaces != null)
+                    {
+                        if (greySpaces.Any())
+                        {
+                            greySpaces.Clear();
+                        }
+                    }
                     masterList = await GetSocrataMasterList();
                     activeList = await GetSocrataActiveSession();
                     activeList.ForEach(x =>
@@ -163,6 +184,20 @@ namespace ParkingLocator.Core.Concretes
                             greenSpaces.Add(item);
                         }
 
+                    }
+                    if (finalSpaces != null)
+                    {
+                        if (finalSpaces.Any())
+                        {
+                            finalSpaces.Clear();
+                        }
+                    }
+                    if (mapLayoutPackage != null)
+                    {
+                        if (mapLayoutPackage.Any())
+                        {
+                            mapLayoutPackage.Clear();
+                        }
                     }
                     mapLayoutPackage.Add(greenSpaces);
                     mapLayoutPackage.Add(redSpaces);
@@ -233,6 +268,11 @@ namespace ParkingLocator.Core.Concretes
             {
                 return false;
             }  
+        }
+
+        public async Task<List<List<Space>>> GetFinalSpaces()
+        {
+            return await Task.FromResult(finalSpaces);
         }
     }
 }

@@ -12,10 +12,6 @@ namespace ParkingLocator.Core.Entities
         public string MeterId { get; set; }
         //public int MobilePayZone { get; set; }
         //public string SpaceType { get; set; }
-        //public string SpaceSize { get; set; }
-        //public string SideOfStreet { get; set; }
-        //public string ToStreet { get; set; }
-        //public string FromStreet { get; set; }
         public string OperationalDays { get; set; }
         public string OperationalHours { get; set; }
         //public string EnforcementType { get; set; }
