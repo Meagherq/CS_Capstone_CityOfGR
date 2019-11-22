@@ -1,4 +1,5 @@
 @import '~@angular/material/theming';
+@import "../../custom-style.scss";
 
 #loc-header {
     margin-top: 1em;
@@ -68,4 +69,7 @@
 .match-parent {
     width: 100%;
     height: 100%;
+}
+.icon{
+    margin-right: 8px;
 }
