@@ -10,6 +10,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <WebView Source="http://10.0.2.2:4200/" Grid.Row="0"/>
+        <WebView Source="http://10.0.2.2:4200/"/>
     </Grid>
 </ContentPage>
