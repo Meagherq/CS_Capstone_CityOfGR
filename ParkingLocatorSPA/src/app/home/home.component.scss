@@ -21,8 +21,9 @@
 
 .title-center {
     text-align: center;
-    font-size: 140%;
-    word-wrap: break-word;
+    font-size: 100%;
+    overflow-wrap: break-word;
+    width: 80%;
 }
 
 .shadow-container {
