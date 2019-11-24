@@ -8,7 +8,7 @@
         </div>
 
             <mat-sidenav-container class="sidenav-container">
-                <mat-sidenav class="sidenav" opened mode="side"  *ngIf="breakpointNotifierService.isMobile" >
+                <mat-sidenav class="sidenav" opened mode="side"  *ngIf="!breakpointNotifierService.isMobile" >
                     <mat-nav-list class="nav-list">       
                         <a class="menu-item" *ngFor="let link of links" routerLink="/{{link.path}}" mat-list-item><mat-icon class="icon"style="margin-right: 8px;" svgIcon={{link.icon}}></mat-icon><mat-divider></mat-divider>{{link.displayText}}</a>     
                         <br>
