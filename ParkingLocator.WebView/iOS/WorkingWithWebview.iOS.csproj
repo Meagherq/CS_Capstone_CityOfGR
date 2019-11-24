@@ -127,7 +127,12 @@
     <Compile Include="BaseUrl_iOS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ParkingLocator.WebView\WorkingWithWebview.csproj">
+      <Project>{6ccd79ce-f7f7-41eb-982f-ddd88624300e}</Project>
+      <Name>WorkingWithWebview</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms">
       <Version>4.1.0.555618</Version>
