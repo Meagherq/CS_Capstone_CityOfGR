@@ -62,15 +62,6 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        // window.onresize = (e) =>
-        // {
-        //     console.log(self.innerWidth);
-        //     if(window.innerWidth <= 618) {
-        //         this.breakpointNotifierService.thisIsMobile(true);
-        //     }else {
-        //         this.breakpointNotifierService.thisIsMobile(false);
-        //     }
-        // };
 
         (mapboxgl as any).accessToken = environment.mapbox.accessToken;
         this.map = new mapboxgl.Map({
@@ -107,18 +98,6 @@ export class HomeComponent implements OnInit {
         this.map.on('load', () => {
                 this.map.resize();
             });
-
-           
-        // find current location and nav to
-        // if (navigator.geolocation) {
-        //     navigator.geolocation.getCurrentPosition(position => {
-        //      this.lat = position.coords.latitude;
-        //      this.lng = position.coords.longitude;
-        //      this.map.flyTo({
-        //        center: [this.lng, this.lat]
-        //      })
-        //    });
-        // }
 
         }
 
