@@ -7,7 +7,9 @@ import * as MapboxGeocoder from 'mapbox-gl-geocoder';
 import { environment } from 'src/environments/environment';
 import { Feature } from 'geojson';
 import { BreakpointNotifierService } from 'src/services/breakpoint-notifier.service';
-
+import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 declare let L: any;
 @Component({
@@ -46,22 +48,30 @@ export class HomeComponent implements OnInit {
         { displayText: 'Parking', path: 'parking', icon: 'car-hatchback' },
         { displayText: 'Events', path: 'events', icon: 'calendar' },
         { displayText: 'Resources', path: 'resources', icon: 'web' },
-        { displayText: 'Settings', path: 'settings', icon: 'settings-outline' },
       ];
-    constructor(private parkingService: ParkingService,private breakpointNotifierService: BreakpointNotifierService, private http: HttpClient) {
+
+      
+      public isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+      .pipe(
+        map(result => result.matches)
+      )
+
+
+    constructor(private parkingService: ParkingService,private breakpointNotifierService: BreakpointNotifierService, private http: HttpClient, private breakpointObserver: BreakpointObserver) {
        
     }
 
     ngOnInit() {
-        window.onresize = (e) =>
-        {
-            console.log(self.innerWidth);
-            if(window.innerWidth <= 500) {
-                this.breakpointNotifierService.thisIsMobile(true);
-            }else {
-                this.breakpointNotifierService.thisIsMobile(false);
-            }
-        };
+        // window.onresize = (e) =>
+        // {
+        //     console.log(self.innerWidth);
+        //     if(window.innerWidth <= 618) {
+        //         this.breakpointNotifierService.thisIsMobile(true);
+        //     }else {
+        //         this.breakpointNotifierService.thisIsMobile(false);
+        //     }
+        // };
+
         (mapboxgl as any).accessToken = environment.mapbox.accessToken;
         this.map = new mapboxgl.Map({
           container: 'map',
@@ -94,6 +104,11 @@ export class HomeComponent implements OnInit {
             this.map.getCanvas().style.cursor = '';
             });
 
+        this.map.on('load', () => {
+                this.map.resize();
+            });
+
+           
         // find current location and nav to
         // if (navigator.geolocation) {
         //     navigator.geolocation.getCurrentPosition(position => {
