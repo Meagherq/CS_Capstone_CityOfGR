@@ -14,11 +14,12 @@
     position: relative
 }
 .map-container { 
-    width: 100%;
+    width: calc(100% - 150px);
     height:calc(100% - 60px);
     position: fixed;
     &.mobile {
         height:calc(100% - 120px);
+        width:100%;
     }
 }
 .main {
