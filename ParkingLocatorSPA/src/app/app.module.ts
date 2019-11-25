@@ -16,6 +16,7 @@ import { MatButtonModule,
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { FormsModule } from '@angular/forms';
+import { BreakpointNotifierService } from 'src/services/breakpoint-notifier.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,7 @@ import { FormsModule } from '@angular/forms';
     MatIconModule,
     FormsModule
   ],
-  providers: [],
+  providers: [BreakpointNotifierService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

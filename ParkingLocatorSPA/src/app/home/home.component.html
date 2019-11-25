@@ -1,23 +1,48 @@
-<div class="shadow-container">
-<mat-toolbar color="primary" class="mat-elevation-z6">
-    <span class="title-center">City of Grand Rapids Interactive Parking Locator</span>
-    <span class="example-spacer"></span>
-</mat-toolbar>
-</div>
-<mat-sidenav-container class="sidenav-container">
-    <mat-sidenav class="sidenav" opened mode="side">
-        <mat-nav-list class="nav-list">       
-            <a class="menu-item" *ngFor="let link of links" routerLink="/{{link.path}}" mat-list-item><mat-icon style="margin-right: 8px;" svgIcon={{link.icon}}></mat-icon><mat-divider></mat-divider>{{link.displayText}}</a>     
-            <br>
-            <div>
-                <mat-divider></mat-divider>
-                <p class="parking-stats-header">Available Spots</p>
-                <p class="parking-stats">{{this.availableSpots}} spots</p>
-                <mat-divider></mat-divider>
+<div class="main">
+    <div class="shadow-container">
+        <mat-toolbar color="primary" class="mat-elevation-z6">
+            <span class="title-center"  *ngIf="(isHandset$ | async) === true" >Interactive Parking Locator</span>
+            <span class="title-center"  *ngIf="(isHandset$ | async) === false" >City of Grand Rapids Interactive Parking Locator</span>
+            <span class="example-spacer"></span>
+        </mat-toolbar>
+    </div>
+    <mat-sidenav-container class="sidenav-container">
+            <mat-sidenav #drawer class="sidenav" 
+                [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+                [mode]="(isHandset$ | async) ? 'over' : 'side'"
+                [opened]="(isHandset$ | async) === false">
+            <mat-nav-list class="nav-list">       
+                <a class="menu-item" *ngFor="let link of links" routerLink="/{{link.path}}" mat-list-item><mat-icon class="icon" svgIcon={{link.icon}}></mat-icon><mat-divider></mat-divider>{{link.displayText}}</a>     
+                <br>
+                <div>
+                    <mat-divider></mat-divider>
+                        <p class="parking-stats-header">Available Spots</p>
+                        <p class="parking-stats">{{this.availableSpots}} spots</p>
+                    <mat-divider></mat-divider>
+                </div>
+            </mat-nav-list>
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <div class="map-container" [ngClass]="{'mobile':(isHandset$ | async) === true}">
+                <div class="map" id="map" class="match-parent">
+                </div>
             </div>
-        </mat-nav-list>
-    </mat-sidenav>
-    <mat-sidenav-content>
-        <div class="map" id="map" class="match-parent"></div>
-    </mat-sidenav-content>
-</mat-sidenav-container>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+    <mat-toolbar class="mobile-nav" color="white" *ngIf="(isHandset$ | async) === true">   
+        <div class="nav-item" routerLink="/{{links[0].path}}">
+            <mat-icon class="icon" color="primary" svgIcon={{links[0].icon}}></mat-icon>
+                {{links[0].displayText}}
+        </div>     
+        <mat-divider vertical style="height:40px"></mat-divider>
+        <div class="nav-item" routerLink="/{{links[1].path}}">
+            <mat-icon class="icon" svgIcon={{links[1].icon}}></mat-icon>
+                {{links[1].displayText}}
+        </div>  
+        <mat-divider vertical style="height:40px"></mat-divider>
+        <div class="nav-item" routerLink="/{{links[2].path}}">
+            <mat-icon class="icon" svgIcon={{links[2].icon}}></mat-icon>
+                {{links[2].displayText}}
+        </div>  
+    </mat-toolbar>
+</div>
