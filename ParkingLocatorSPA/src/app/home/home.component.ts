@@ -6,9 +6,10 @@ import * as mapboxgl from 'mapbox-gl';
 import * as MapboxGeocoder from 'mapbox-gl-geocoder';
 import { environment } from 'src/environments/environment';
 import { Feature } from 'geojson';
+import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-
-declare let L: any;
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -22,7 +23,6 @@ declare let L: any;
         declarations: [HomeComponent]
     })
 export class HomeComponent implements OnInit {
-
     httpOptions = {
         headers: new HttpHeaders({
             'Content-Type':  'application/json',
@@ -43,25 +43,27 @@ export class HomeComponent implements OnInit {
     redArray: Array<Feature> = new Array<Feature>();
     greyArray: Array<Feature> = new Array<Feature>();
 
-
-
     public links = [
         { displayText: 'Parking', path: 'parking', icon: 'car-hatchback' },
         { displayText: 'Events', path: 'events', icon: 'calendar' },
         { displayText: 'Resources', path: 'resources', icon: 'web' },
-        { displayText: 'Settings', path: 'settings', icon: 'settings-outline' },
-      ];
-    constructor(private parkingService: ParkingService, private http: HttpClient) {
+    ];
 
+    public isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+        .pipe(map(result => result.matches));
+
+
+    constructor(private parkingService: ParkingService, private http: HttpClient, private breakpointObserver: BreakpointObserver) {
     }
 
     ngOnInit() {
+
         (mapboxgl as any).accessToken = environment.mapbox.accessToken;
         this.map = new mapboxgl.Map({
-          container: 'map',
-          style: this.style,
-          zoom: 13,
-          center: [this.lng, this.lat]
+            container: 'map',
+            style: this.style,
+            zoom: 13,
+            center: [this.lng, this.lat]
         });
 
         const geocoder = new MapboxGeocoder({ // Initialize the geocoder
@@ -99,7 +101,6 @@ export class HomeComponent implements OnInit {
             this.map.getCanvas().style.cursor = '';
         });
         geocoder.on('result', async (e) => {
-            // geocoder.setInput('');
             console.log(e);
             this.searchLocation = e.result.text;
             this.availableSpots = 'Calculating';
@@ -128,6 +129,10 @@ export class HomeComponent implements OnInit {
         //      })
         //    });
         // }
+
+        this.map.on('load', () => {
+                this.map.resize();
+            });
         }
 
     delay(ms: number) {
@@ -273,6 +278,6 @@ export class HomeComponent implements OnInit {
                     'fill-outline-color': '#000000',
                 },
             });
-          });
+        });
     }
 }

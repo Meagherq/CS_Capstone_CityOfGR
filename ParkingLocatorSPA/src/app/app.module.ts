@@ -35,7 +35,6 @@ import { FormsModule } from '@angular/forms';
     MatIconModule,
     FormsModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {

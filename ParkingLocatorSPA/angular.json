@@ -32,11 +32,9 @@
                     "input": "src/custom-style.scss"
                 },
               "src/styles.scss",
-              "src/assets/leaflet/leaflet.css",
               "../ParkingLocatorSPA/node_modules/mapbox-gl-geocoder/lib/mapbox-gl-geocoder.css"
             ],
             "scripts": [
-                "src/assets/leaflet/leaflet.js"
             ]
           },
           "configurations": {
