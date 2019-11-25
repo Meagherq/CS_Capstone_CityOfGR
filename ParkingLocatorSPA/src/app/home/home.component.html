@@ -30,9 +30,19 @@
         </mat-sidenav-content>
     </mat-sidenav-container>
     <mat-toolbar class="mobile-nav" color="white" *ngIf="(isHandset$ | async) === true">   
-                    <div class="nav-item" *ngFor="let link of links" routerLink="/{{link.path}}" mat-list-item>
-                        <mat-icon class="icon" svgIcon={{link.icon}}></mat-icon>
-                        {{link.displayText}}
-                    </div>     
+        <div class="nav-item" routerLink="/{{links[0].path}}">
+            <mat-icon class="icon" color="primary" svgIcon={{links[0].icon}}></mat-icon>
+                {{links[0].displayText}}
+        </div>     
+        <mat-divider vertical style="height:40px"></mat-divider>
+        <div class="nav-item" routerLink="/{{links[1].path}}">
+            <mat-icon class="icon" svgIcon={{links[1].icon}}></mat-icon>
+                {{links[1].displayText}}
+        </div>  
+        <mat-divider vertical style="height:40px"></mat-divider>
+        <div class="nav-item" routerLink="/{{links[2].path}}">
+            <mat-icon class="icon" svgIcon={{links[2].icon}}></mat-icon>
+                {{links[2].displayText}}
+        </div>  
     </mat-toolbar>
 </div>
