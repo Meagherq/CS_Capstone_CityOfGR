@@ -23,7 +23,7 @@
             </mat-nav-list>
         </mat-sidenav>
         <mat-sidenav-content>
-            <div class="map-container" ngclass="{'mobile': isHandset$ | async) === true}">
+            <div class="map-container" [ngClass]="{'mobile':(isHandset$ | async) === true}">
                 <div class="map" id="map" class="match-parent">
                 </div>
             </div>
