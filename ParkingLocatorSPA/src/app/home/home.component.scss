@@ -7,6 +7,8 @@
 }
 .mat-toolbar {
     height:60px;
+    display: flex;
+    justify-content: center;
 }
 #map {
     width: 100%; 

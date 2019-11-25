@@ -24,17 +24,18 @@ namespace ParkingLocator.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(options =>
-            {
-                options.AddPolicy(MyAllowSpecificOrigins,
-                builder =>
-                {
-                    builder.AllowAnyOrigin()
-                           .AllowAnyMethod()
-                           .AllowAnyHeader()
-                           .Build();
-                });
-            });
+            services.AddCors();
+            //    options =>
+            //{
+            //    options.AddPolicy(MyAllowSpecificOrigins,
+            //    builder =>
+            //    {
+            //        builder.AllowAnyOrigin()
+            //               .AllowAnyMethod()
+            //               .AllowAnyHeader()
+            //               .Build();
+            //    });
+            //});
             services.AddHttpClient();
             services.AddTransient<IParkingService, ParkingService>();
             services.Configure<ParkingKeyOptions>(options => Configuration.GetSection("ParkingKeyOptions").Bind(options));
@@ -48,6 +49,9 @@ namespace ParkingLocator.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IParkingService parkingService)
         {
+            app.UseCors(builder => {
+                builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+            }).Build();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -63,9 +67,9 @@ namespace ParkingLocator.API
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "City of Grand Rapids Parking V1");
             });
             //app.UseHealthChecks("/health");
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseMvc();
-            app.UseCors(MyAllowSpecificOrigins);
+
             parkingService.UpdateMap();
         }
     }

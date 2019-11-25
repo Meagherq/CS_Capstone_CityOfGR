@@ -7,9 +7,8 @@ namespace WorkingWithWebview
         public WebPage()
         {
             var browser = new WebView();
-            browser.Source = "https://3a5a5a5a.ngrok.io";
+            browser.Source = "http://43b74cc6.ngrok.io/";
             Content = browser;            
         }
     }
 }
-

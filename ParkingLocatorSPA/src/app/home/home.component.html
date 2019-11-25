@@ -14,11 +14,11 @@
             <mat-nav-list class="nav-list">       
                 <a class="menu-item" *ngFor="let link of links" routerLink="/{{link.path}}" mat-list-item><mat-icon class="icon" svgIcon={{link.icon}}></mat-icon><mat-divider></mat-divider>{{link.displayText}}</a>     
                 <br>
-                <div>
-                    <p *ngIf="isAvailable" class="parking-stats-header">Available Spots</p>
-                    <p *ngIf="isAvailable" class="parking-stats">near</p>
-                    <p *ngIf="isAvailable" class="parking-stats">{{this.searchLocation}}</p>
-                    <p *ngIf="isAvailable" class="parking-stats">{{this.availableSpots}} Spots</p>
+                <div *ngIf="isAvailable">
+                    <p class="parking-stats-header">Available Spots</p>
+                    <p class="parking-stats">near</p>
+                    <p class="parking-stats">{{this.searchLocation}}</p>
+                    <p class="parking-stats">{{this.availableSpots}} Spots</p>
                     <mat-divider></mat-divider>
                 </div>
             </mat-nav-list>
