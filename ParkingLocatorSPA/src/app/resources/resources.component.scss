@@ -1,9 +1,36 @@
+.card-container {
+    display: flex;
+    width: 100%;
+    &.mobile {
+        flex-direction: column;
+    }
+}
 .mat-card {
-    max-width: 300px;
-    margin: 4px
+    box-sizing: border-box;
+    width: calc(100%/3);
+    height: 200px;
+    margin: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+
+    &.mobile {
+        width: calc(100% - 30px);
+
+    }
   }
   
-  .example-header-image {
-    background-image: url();
-    background-size: cover;
+  .mat-card-content {
+      margin: 16px 0;
   }
+  .dash-header-image {
+    background-image: url(../../assets/dash.png);
+    background-size: cover;
+    border-radius: 0;
+  }
+
+  .city-header-image {
+    background-image: url(../../assets/grand_rapids__city_of.jpg);
+    background-size: cover;
+    border-radius: 0;
+  }
+
