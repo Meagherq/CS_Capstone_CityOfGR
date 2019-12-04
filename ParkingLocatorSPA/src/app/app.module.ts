@@ -16,11 +16,15 @@ import { MatButtonModule,
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { FormsModule } from '@angular/forms';
+import { ResourcesComponent } from './resources/resources.component';
+import { EventsComponent } from './events/events.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+    ResourcesComponent,
+    EventsComponent,
   ],
   imports: [
     BrowserModule,

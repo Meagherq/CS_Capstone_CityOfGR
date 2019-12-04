@@ -25,9 +25,10 @@
         </mat-sidenav>
         <mat-sidenav-content>
             <div class="map-container" [ngClass]="{'mobile':(isHandset$ | async) === true}">
-                <div class="map" id="map" class="match-parent">
+                <div class="map" id="map" class="match-parent" *ngIf="showMap">
                 </div>
             </div>
+            <router-outlet *ngIf="!showMap"></router-outlet>
         </mat-sidenav-content>
     </mat-sidenav-container>
     <mat-toolbar class="mobile-nav" color="white" *ngIf="(isHandset$ | async) === true">   
