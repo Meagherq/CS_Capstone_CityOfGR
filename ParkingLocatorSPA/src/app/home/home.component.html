@@ -24,8 +24,8 @@
             </mat-nav-list>
         </mat-sidenav>
         <mat-sidenav-content>
-            <div class="map-container" [ngClass]="{'mobile':(isHandset$ | async) === true}">
-                <div class="map" id="map" class="match-parent" *ngIf="showMap">
+            <div class="map-container" [ngClass]="{'mobile':(isHandset$ | async) === true, 'dontshow': !showMap}">
+                <div class="map" id="map" class="match-parent">
                 </div>
             </div>
             <router-outlet *ngIf="!showMap"></router-outlet>

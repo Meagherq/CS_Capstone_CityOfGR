@@ -60,6 +60,7 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
         this.router.events.subscribe((data) => {
+
             if (data instanceof RoutesRecognized) {
             if(data.state.root.firstChild) {
                 if(data.state.root.firstChild.data.Map === false) {
@@ -70,9 +71,7 @@ export class HomeComponent implements OnInit {
             } else {
                 this.showMap = true;
             }
-
             if(this.showMap) {
-                console.log("hit");
                 (mapboxgl as any).accessToken = environment.mapbox.accessToken;
                 this.map = new mapboxgl.Map({
                     container: 'map',
