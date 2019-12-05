@@ -38,5 +38,13 @@ namespace ParkingLocator.API.Controllers
             var results = await _parkingService.GetSocrataActiveSession();
             return Ok(results);
         }
+
+        [ProducesResponseType(200)]
+        [HttpGet("events")]
+        public async Task<ActionResult> GetEvents()
+        {
+            var results = await _parkingService.GetEvents();
+            return Ok(results);
+        }
     }
 }

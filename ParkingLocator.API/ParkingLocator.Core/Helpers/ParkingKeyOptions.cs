@@ -20,5 +20,8 @@ namespace ParkingLocator.Core.Helpers
         public string SocrataAdminKey { get; set; }
         public string SocrataClientId { get; set; }
         public string SocrataClientSecret { get; set; }
+        public string EventsAPIEndpoint { get; set; }
+        public string EventsAppId { get; set; }
+        public string EventsAPIKey { get; set; }
     }
 }

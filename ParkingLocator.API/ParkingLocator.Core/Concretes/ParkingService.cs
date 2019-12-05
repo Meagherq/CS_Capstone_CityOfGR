@@ -8,9 +8,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace ParkingLocator.Core.Concretes
 {
@@ -273,6 +276,67 @@ namespace ParkingLocator.Core.Concretes
         public async Task<List<List<Space>>> GetFinalSpaces()
         {
             return await Task.FromResult(finalSpaces);
+        }
+
+        public async Task<string> GetEvents()
+        {
+            List<object> list = new List<object>();
+            string results = "";
+
+            var request = new HttpRequestMessage(HttpMethod.Get, _options.Value.EventsAPIEndpoint);
+
+            var client = _clientFactory.CreateClient();
+
+            string requestContentBase64String = string.Empty;
+
+            string requestUri = HttpUtility.UrlEncode(request.RequestUri.AbsoluteUri.ToLower());
+
+            string requestHttpMethod = request.Method.Method;
+
+            //Calculate UNIX time
+            DateTime epochStart = new DateTime(1970, 01, 01, 0, 0, 0, 0, DateTimeKind.Utc);
+            TimeSpan timeSpan = DateTime.UtcNow - epochStart;
+            string requestTimeStamp = Convert.ToUInt64(timeSpan.TotalSeconds).ToString();
+
+            //create random nonce for each request
+            string nonce = Guid.NewGuid().ToString("N");
+
+            //Checking if the request contains body, usually will be null with HTTP GET and DELETE
+            if (request.Content != null)
+            {
+                byte[] content = Encoding.UTF8.GetBytes(await request.Content.ReadAsStringAsync());
+                requestContentBase64String = Convert.ToBase64String(content);
+            }
+
+            //Creating the raw signature string
+            string signatureRawData = String.Format("{0}{1}{2}{3}{4}{5}", _options.Value.EventsAppId, requestHttpMethod, requestUri, requestTimeStamp, nonce, requestContentBase64String);
+
+            var secretKeyByteArray = Encoding.UTF8.GetBytes(_options.Value.EventsAPIKey);
+            byte[] signature = Encoding.UTF8.GetBytes(signatureRawData);
+            using (HMACSHA256 hmac = new HMACSHA256(secretKeyByteArray))
+            {
+                byte[] signatureBytes = hmac.ComputeHash(signature);
+                string requestSignatureBase64String = Convert.ToBase64String(signatureBytes);
+                request.Headers.Authorization = new AuthenticationHeaderValue("hmac", string.Format("{0}:{1}:{2}:{3}", _options.Value.EventsAppId, requestSignatureBase64String, nonce, requestTimeStamp));
+            }
+            //return request.CreateResponse();
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                results = await response.Content.ReadAsStringAsync();
+            }
+            var res = JsonConvert.DeserializeObject<JObject>(results);
+            var res1 = res.First.First.Children().ToList();
+            res1.ForEach(x =>
+            {
+                var xx = x.ToArray()[13].First.First.First.ToArray()[3].First;
+                list.Add(xx);
+            });
+            //res1.ForEach(x => x.First);
+            Console.WriteLine(list);
+            //var rest2 = res1[13];
+            return results;
         }
     }
 }
