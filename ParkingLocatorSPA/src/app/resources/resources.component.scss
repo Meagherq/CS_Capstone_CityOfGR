@@ -1,18 +1,28 @@
+@import '~@angular/material/theming';
+@import "../../custom-style.scss";
+
 .card-container {
     display: flex;
-    width: 100%;
+    width: calc(100% - 150px);
+    flex-wrap: wrap;
     &.mobile {
         flex-direction: column;
+        margin-bottom: 60px;
+        width: 100%;
     }
+
 }
 .mat-card {
     box-sizing: border-box;
-    width: calc(100%/3);
+    width: 31.3%;
     height: 200px;
     margin: 15px;
     border-radius: 10px;
     cursor: pointer;
 
+    &:hover {
+        box-shadow: 0 4px 4px 4px rgba(0,0,0,.2), 0 4px 4px 0 rgba(0,0,0,.14), 0 4px 4px 0 rgba(0,0,0,.12) !important;
+    }
     &.mobile {
         width: calc(100% - 30px);
 
@@ -21,7 +31,9 @@
   
   .mat-card-content {
       margin: 16px 0;
+
   }
+
   .dash-header-image {
     background-image: url(../../assets/dash.png);
     background-size: cover;
@@ -34,3 +46,30 @@
     border-radius: 0;
   }
 
+  .facebook-header-image {
+    background-image: url(../../assets/facebook_logos_PNG19753.png);
+    background-size: cover;
+    border-radius: 0;
+  }
+
+  .youtube-header-image {
+    background-image: url(../../assets/YouTube-logo.png);
+    background-size: cover;
+    width: 85px;
+    border-radius: 0;
+  }
+
+  .twitter-header-image {
+    background-image: url(../../assets/twitter-logo-C591CF37A1-seeklogo.com.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 0;
+    width: 85px;
+    height: 50px;
+  }
+
+  .instagram-header-image {
+    background-image: url(../../assets/instagram.jpg);
+    background-size: cover;
+    border-radius: 0;
+  }

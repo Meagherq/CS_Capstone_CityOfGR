@@ -27,6 +27,7 @@
 .main {
     display: flexbox;
     width:100%;
+    height:100%;
 }
 
 .dash-button {
@@ -35,9 +36,13 @@
 
 .title-center {
     text-align: center;
-    font-size: 100%;
+    font-size: 32px;
     overflow-wrap: break-word;
-    width: 80%;
+    width: 100%;
+    
+    &.mobile {
+        font-size: 24px;
+    }
 }
 
 .shadow-container {
@@ -58,7 +63,6 @@
 .sidenav {
     margin-top:60px;
     width: 150px;
-    height: 600px;
     position: fixed;
 }
 
@@ -129,4 +133,8 @@
 
 .dontshow {
     display: none;
+}
+
+.mat-sidenav-container {
+    height: calc(100% - 60px);
 }

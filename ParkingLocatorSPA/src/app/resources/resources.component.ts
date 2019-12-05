@@ -26,4 +26,18 @@ export class ResourcesComponent implements OnInit {
   goCity() {
     window.location.href='https://www.grandrapidsmi.gov';
   }
+
+  goFacebook() {
+    window.location.href='https://www.facebook.com/CityofGrandRapids';
+  }
+  goYoutube() {
+    window.location.href='https://www.youtube.com/user/TheCityofGR';
+  }
+  goTwitter() {
+    window.location.href='https://twitter.com/CityGrandRapids';
+  }
+  v
+  goInstagram() {
+    window.location.href='https://www.instagram.com/citygrandrapids/';
+  }
 }

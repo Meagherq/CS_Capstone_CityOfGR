@@ -16,4 +16,41 @@
         </mat-card-header>
         <mat-card-content>Need more info on a city matter check out the city of GrandRapids website.</mat-card-content>
     </mat-card>
+
+    <mat-card (click)="goFacebook()" [ngClass]="{'mobile':(isHandset$ | async) === true}">
+        <mat-card-header>
+        <mat-icon></mat-icon>
+            <div mat-card-avatar class="facebook-header-image"></div>
+            <mat-card-title>Facebook</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>To see whats happening currently in our city like traffic updates and more <br><br> Like us on Facebook</mat-card-content>
+    </mat-card>
+
+    <mat-card (click)="goYoutube()" [ngClass]="{'mobile':(isHandset$ | async) === true}">
+        <mat-card-header>
+        <mat-icon></mat-icon>
+            <div mat-card-avatar class="youtube-header-image"></div>
+            <mat-card-title>Youtube</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>To see tutoiral videos like "how to sign up to volunteer" <br><br>Subscribe to our Youtube channel.</mat-card-content>
+    </mat-card>
+
+    <mat-card (click)="goTwitter()" [ngClass]="{'mobile':(isHandset$ | async) === true}">
+        <mat-card-header>
+        <mat-icon></mat-icon>
+            <div mat-card-avatar class="twitter-header-image"></div>
+            <mat-card-title>Twitter</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>To see current news updates <br><br> Follow us on Twitter.</mat-card-content>
+    </mat-card>
+
+    <mat-card (click)="goInstagram()" [ngClass]="{'mobile':(isHandset$ | async) === true}">
+        <mat-card-header>
+        <mat-icon></mat-icon>
+            <div mat-card-avatar class="instagram-header-image"></div>
+            <mat-card-title>Instagram</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>To see more pictures of our lovely city.
+            <br><br>Follow us on Instagram.</mat-card-content>
+    </mat-card>
 </div>
