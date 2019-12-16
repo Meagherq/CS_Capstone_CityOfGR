@@ -127,6 +127,7 @@ namespace ParkingLocator.Core.Concretes
                     activeList = await GetSocrataActiveSession();
                     activeList.ForEach(x =>
                     {
+                        Console.WriteLine(x.session_end);
                         if (x.data_source == "MOTU")
                         {
                             Space space = masterList.FirstOrDefault(y => y.SpaceId == x.space_number);
@@ -134,6 +135,7 @@ namespace ParkingLocator.Core.Concretes
                             {
                                 if (IsSpaceEnforceable(space.OperationalHours))
                                 {
+                                    Console.WriteLine(x.session_end);
                                     if (IsSpaceExpired(x.session_end) == true)
                                     {
                                         redSpaces.Add(space);
@@ -280,7 +282,7 @@ namespace ParkingLocator.Core.Concretes
 
         public async Task<string> GetEvents()
         {
-            List<object> list = new List<object>();
+            List<Event> list = new List<Event>();
             string results = "";
 
             var request = new HttpRequestMessage(HttpMethod.Get, _options.Value.EventsAPIEndpoint);
@@ -330,8 +332,27 @@ namespace ParkingLocator.Core.Concretes
             var res1 = res.First.First.Children().ToList();
             res1.ForEach(x =>
             {
-                var xx = x.ToArray()[13].First.First.First.ToArray()[3].First;
-                list.Add(xx);
+
+                //Navigate to array of Events
+                var root = x.ToArray()[13].First.First.First.ToArray()[3].First.Children();
+                try
+                {
+                    //Attempt to parse out individual values. Structure is super complicated.
+                    //https://www.newtonsoft.com/json/help/html/QueryJsonSelectTokenJsonPath.htm
+                    var xx = root.ToList();
+                    xx.ForEach(r => {
+                        Console.WriteLine(r.Path);
+                        var newEvent = new Event();
+                        var ss = r.ToObject<object>();
+                        //Console.WriteLine(newEvent.Title);
+
+                        list.Add(newEvent);
+                    });
+                }
+                catch
+                {
+                }
+
             });
             //res1.ForEach(x => x.First);
             Console.WriteLine(list);
