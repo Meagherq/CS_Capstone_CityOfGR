@@ -129,7 +129,7 @@ export class HomeComponent implements OnInit {
                     const bbox: [mapboxgl.PointLike, mapboxgl.PointLike] =
                     [[point.x - (width * .5), point.y - (height * .5)],
                     [point.x + (width * .5), point.y + (height * .5)]];
-                    const features = this.map.queryRenderedFeatures(bbox, { layers: ['greyMasterSpaces'] });
+                    const features = this.map.queryRenderedFeatures(bbox, { layers: ['greenMasterSpaces'] });
                     this.availableSpots = features.length;
                 });
         
